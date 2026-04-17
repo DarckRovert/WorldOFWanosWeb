@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initRandomQuotes();
     initWeather();
-    initCustomCursor();
+    // initCustomCursor();
     initAchievements();
     initSecretLore();
     initNavigation();
