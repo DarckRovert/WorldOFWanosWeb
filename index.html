@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World OF Wanos | Hermandad UltimoWoW — Rasganorte</title>
+    <meta name="description" content="Sitio oficial de la hermandad World OF Wanos en el servidor UltimoWoW (WotLK). Bajo la visión de Bhalanar y el poder de Morgoroth. Únete al Panteón.">
+    <meta name="og:title" content="World OF Wanos | Hermandad UltimoWoW">
+    <meta name="og:description" content="La hermandad élite de UltimoWoW. Forjada entre la escarcha y el destino.">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="index.css">
+    <!-- Wowhead Tooltips -->
+    <script>const whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: true};</script>
+    <script src="https://wow.zamimg.com/js/tooltips.js"></script>
+</head>
+<body>
+    <!-- Canvas de fondo y atmosféricos -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="vignette"></div>
+    <div id="custom-cursor"></div>
+    <div id="cursor-trail"></div>
+    <div class="fog-texture"></div>
+
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Achievement Container -->
+    <div id="achievement-container"></div>
+
+    <!-- Background Audio (Ambient) -->
+    <audio id="ambient-audio" loop></audio>
+
+    <!-- ========================
+         NAV FIJA
+    ========================= -->
+    <nav id="main-nav">
+        <div class="nav-brand">
+            <span class="nav-rune">ᛟ</span>
+            <span class="nav-title">WORLD OF WANOS</span>
+            <span class="nav-rune">ᛟ</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#hero" class="nav-link active" data-section="hero">INICIO</a></li>
+            <li><a href="#architects" class="nav-link" data-section="architects">PANTEÓN</a></li>
+            <li><a href="#conquest" class="nav-link" data-section="conquest">CONQUISTAS</a></li>
+            <li><a href="#streaming" class="nav-link" data-section="streaming">EN VIVO</a></li>
+            <li><a href="#recruit" class="nav-link" data-section="recruit">RECLUTAR</a></li>
+            <li><a href="#wisdom" class="nav-link" data-section="wisdom">FORJA</a></li>
+            <li><a href="https://discord.gg/s5AUDDmbta" target="_blank" class="nav-link nav-discord">⚡ DISCORD</a></li>
+        </ul>
+        <button id="nav-mobile-toggle" aria-label="Menú">☰</button>
+    </nav>
+
+    <!-- Mobile nav overlay -->
+    <div id="mobile-nav-overlay">
+        <ul class="mobile-nav-links">
+            <li><a href="#hero" class="mobile-nav-link">INICIO</a></li>
+            <li><a href="#architects" class="mobile-nav-link">PANTEÓN</a></li>
+            <li><a href="#conquest" class="mobile-nav-link">CONQUISTAS</a></li>
+            <li><a href="#streaming" class="mobile-nav-link">EN VIVO</a></li>
+            <li><a href="#recruit" class="mobile-nav-link">RECLUTAR</a></li>
+            <li><a href="#wisdom" class="mobile-nav-link">FORJA</a></li>
+            <li><a href="https://discord.gg/s5AUDDmbta" target="_blank" class="mobile-nav-link">DISCORD</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <!-- ========================
+             1. HERO SECTION
+        ========================= -->
+        <section id="hero" class="hero">
+            <div class="hero-emblem">ᛟ</div>
+            <h1 class="glacial-text hero-title">WORLD OF WANOS</h1>
+            <p class="hero-subtitle">EL UNIVERSO FORJADO ENTRE LA ESCARCHA Y EL DESTINO</p>
+            <div class="quote-container" id="random-quote"></div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-number gold-text" id="stat-members">47</span>
+                    <span class="stat-label">Almas del Panteón</span>
+                </div>
+                <div class="hero-stat-divider">⚔</div>
+                <div class="hero-stat">
+                    <span class="stat-number gold-text" id="stat-raids">12</span>
+                    <span class="stat-label">Raids Completados</span>
+                </div>
+                <div class="hero-stat-divider">⚔</div>
+                <div class="hero-stat">
+                    <span class="stat-number gold-text" id="stat-bosses">38</span>
+                    <span class="stat-label">Jefes Derrotados</span>
+                </div>
+            </div>
+            <div class="hero-actions">
+                <a href="#architects" class="cta-button" id="btn-iniciar-cronica">INICIAR CRÓNICA</a>
+                <a href="https://discord.gg/s5AUDDmbta" target="_blank" class="cta-button secondary" id="btn-discord-hero">EL NEXO DE ALMAS</a>
+            </div>
+            <div class="scroll-down" id="scroll-indicator">
+                <span>DESCENDER</span>
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </section>
+
+        <!-- ========================
+             SEPARADOR RÚNICO
+        ========================= -->
+        <div class="rune-divider">
+            <span>ᛏ</span><div class="rune-line"></div><span>⚔ LOS FORJADORES ⚔</span><div class="rune-line"></div><span>ᛏ</span>
+        </div>
+
+        <!-- ========================
+             2. ARCHITECTS SECTION (LORE)
+        ========================= -->
+        <section id="architects">
+            <div class="section-header">
+                <h2 class="gold-text">Los Forjadores del Orden</h2>
+                <p class="section-subtitle">El Panteón que rige el Universo Wanos desde las sombras de Rasganorte</p>
+            </div>
+            <div class="cards-container">
+                <div class="card lore-card" id="card-bhalanar" data-lore="bhalanar" tabindex="0" role="button" aria-label="Ver lore de Bhalanar">
+                    <div class="card-glow glacial-glow"></div>
+                    <div class="card-rank-badge glacial-badge">VIGILANTE SUPREMO</div>
+                    <div class="card-img-wrapper">
+                        <img src="assets/images/bhalanar.png" alt="Bhalanar — Vigilante de la Urdimbre" loading="lazy">
+                        <div class="card-img-overlay">
+                            <span>📜 VER CRÓNICA</span>
+                        </div>
+                    </div>
+                    <h3 class="gold-text">Bhalanar</h3>
+                    <p class="glacial-text card-role">Vigilante de la Urdimbre (GM)</p>
+                    <p class="card-desc">Antiguo observador de las Salas de la Creación de Ulduar. Teje los hilos del Universo Wanos desde un plano de orden absoluto.</p>
+                    <div class="card-tags">
+                        <span class="tag tag-glacial">Líder de Raid</span>
+                        <span class="tag tag-gold">Fundador</span>
+                        <span class="tag tag-void">Arquitecto</span>
+                    </div>
+                    <div class="card-footer-line">
+                        <span class="card-click-hint">↗ Pulsa para ver la crónica completa</span>
+                    </div>
+                </div>
+                <div class="card lore-card" id="card-morgoroth" data-lore="morgoroth" tabindex="0" role="button" aria-label="Ver lore de Morgoroth">
+                    <div class="card-glow void-glow"></div>
+                    <div class="card-rank-badge void-badge">GRAN EJECUTOR</div>
+                    <div class="card-img-wrapper">
+                        <img src="assets/images/morgoroth.png" alt="Morgoroth — Ejecutor de la Justicia Glacial" loading="lazy">
+                        <div class="card-img-overlay">
+                            <span>📜 VER CRÓNICA</span>
+                        </div>
+                    </div>
+                    <h3 class="gold-text">Morgoroth</h3>
+                    <p class="glacial-text card-role">Ejecutor de la Justicia Glacial (Co-GM)</p>
+                    <p class="card-desc">Comandante veterano de la Espada de Ébano. Bajo su mando, los guerreros entran en la <b>Fase de Frenesí</b>, liberando un poder incontenible.</p>
+                    <div class="card-tags">
+                        <span class="tag tag-red">Tilteados Anónimos</span>
+                        <span class="tag tag-gold">Co-GM</span>
+                        <span class="tag tag-void">Segador</span>
+                    </div>
+                    <div class="card-footer-line">
+                        <span class="card-click-hint">↗ Pulsa para ver la crónica completa</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             SEPARADOR RÚNICO
+        ========================= -->
+        <div class="rune-divider">
+            <span>ᚠ</span><div class="rune-line"></div><span>⚔ JERARQUÍA DEL PANTEÓN ⚔</span><div class="rune-line"></div><span>ᚠ</span>
+        </div>
+
+        <!-- ========================
+             3. PANTHEON HIERARCHY
+        ========================= -->
+        <section id="pantheon">
+            <div class="section-header">
+                <h2 class="glacial-text">La Jerarquía del Panteón</h2>
+                <p class="section-subtitle">El orden inmutable que sostiene el Universo Wanos</p>
+            </div>
+            <div class="hierarchy-tree">
+                <div class="hierarchy-tier tier-1">
+                    <div class="tier-badge t1">I</div>
+                    <div class="tier-content">
+                        <b class="gold-text">Vigilante Supremo</b>
+                        <span>Bhalanar — El Arquitecto de Realidades</span>
+                        <p>Autoridad máxima. Su palabra es ley en el Universo Wanos.</p>
+                    </div>
+                    <div class="tier-icon">👁</div>
+                </div>
+                <div class="hierarchy-connector">▼</div>
+                <div class="hierarchy-tier tier-2">
+                    <div class="tier-badge t2">II</div>
+                    <div class="tier-content">
+                        <b class="gold-text">Gran Ejecutor</b>
+                        <span>Morgoroth — El Segador de Almas</span>
+                        <p>Mano derecha del Vigilante. Ejecuta la justicia glacial sin piedad.</p>
+                    </div>
+                    <div class="tier-icon">⚔</div>
+                </div>
+                <div class="hierarchy-connector">▼</div>
+                <div class="hierarchy-tier tier-3">
+                    <div class="tier-badge t3">III</div>
+                    <div class="tier-content">
+                        <b class="glacial-text">Heraldos</b>
+                        <span>Oficiales y Guías de Senda (Raid Leaders)</span>
+                        <p>Elegidos por su maestría táctica. Lideran las expediciones contra la Plaga.</p>
+                    </div>
+                    <div class="tier-icon">🛡</div>
+                </div>
+                <div class="hierarchy-connector">▼</div>
+                <div class="hierarchy-tier tier-4">
+                    <div class="tier-badge t4">IV</div>
+                    <div class="tier-content">
+                        <b class="glacial-text">Custodios</b>
+                        <span>Veteranos en Fase de Frenesí Permanente</span>
+                        <p>Guerreros probados que han superado las pruebas del Panteón.</p>
+                    </div>
+                    <div class="tier-icon">🔥</div>
+                </div>
+                <div class="hierarchy-connector">▼</div>
+                <div class="hierarchy-tier tier-5">
+                    <div class="tier-badge t5">V</div>
+                    <div class="tier-content">
+                        <b>Iniciados</b>
+                        <span>Almas en busca de propósito y redención</span>
+                        <p>Nuevos reclutas forjando su camino hacia la eternidad.</p>
+                    </div>
+                    <div class="tier-icon">🌱</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             SEPARADOR RÚNICO
+        ========================= -->
+        <div class="rune-divider">
+            <span>ᚦ</span><div class="rune-line"></div><span>⚔ CRÓNICAS DE CONQUISTA ⚔</span><div class="rune-line"></div><span>ᚦ</span>
+        </div>
+
+        <!-- ========================
+             4. CONQUEST SECTION
+        ========================= -->
+        <section id="conquest">
+            <div class="section-header">
+                <h2 class="glacial-text">Las Crónicas de la Conquista</h2>
+                <p class="section-subtitle">Estado de las campañas contra la Plaga y sus aliados</p>
+            </div>
+
+            <!-- Progreso general -->
+            <div class="conquest-progress-bar-container">
+                <div class="conquest-progress-label">
+                    <span class="gold-text">Progreso de Expansión</span>
+                    <span class="glacial-text" id="conquest-percent">67%</span>
+                </div>
+                <div class="conquest-progress-bar">
+                    <div class="conquest-progress-fill" style="width: 67%;">
+                        <div class="progress-shine"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conquest-grid">
+                <!-- OBJETIVO PRIMORDIAL -->
+                <div class="boss-card current" id="boss-arthas" data-boss="arthas" tabindex="0" role="button">
+                    <div class="boss-raid-label">Ciudadela de la Corona de Hielo</div>
+                    <img src="assets/icons/bosses/arthas.png" alt="El Rey Exánime — Arthas Menethil" loading="lazy">
+                    <h3>Rey Exánime</h3>
+                    <p class="boss-flavor">Arthas Menethil aguarda en el Trono Helado. El destino del Universo Wanos depende de su caída.</p>
+                    <span class="status-tag pulse">⚔ OBJETIVO PRIMORDIAL</span>
+                    <div class="boss-difficulty">
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                    </div>
+                </div>
+
+                <!-- DERROTADO -->
+                <div class="boss-card defeated" id="boss-anubarak" data-boss="anubarak" tabindex="0" role="button">
+                    <div class="boss-raid-label">Prueba del Cruzado</div>
+                    <img src="assets/icons/bosses/anubarak.png" alt="Anub'arak" loading="lazy">
+                    <h3>Anub'arak</h3>
+                    <p class="boss-flavor">El Rey Araña fue desterrado por el filo del Panteón. Su armadura quedó como trofeo.</p>
+                    <span class="status-tag">✓ ERRADICADO</span>
+                    <div class="boss-difficulty">
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip"></span>
+                    </div>
+                </div>
+
+                <!-- DERROTADO -->
+                <div class="boss-card defeated" id="boss-algalon" data-boss="algalon" tabindex="0" role="button">
+                    <div class="boss-raid-label">Ulduar</div>
+                    <img src="assets/icons/bosses/algalon.png" alt="Algalon el Observador" loading="lazy">
+                    <h3>Algalon</h3>
+                    <p class="boss-flavor">El Observador fue recalibrado. Bhalanar le convenció de no borrar Azeroth del universo.</p>
+                    <span class="status-tag">✓ RECALIBRADO</span>
+                    <div class="boss-difficulty">
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cronología de conquista -->
+            <div class="conquest-timeline">
+                <h3 class="glacial-text timeline-title">Línea de la Campaña</h3>
+                <div class="timeline-items">
+                    <div class="timeline-item done">
+                        <div class="tl-dot done-dot"></div>
+                        <div class="tl-content">
+                            <span class="tl-date gold-text">Fase I</span>
+                            <span class="tl-event">Ulduar — Algalon Recalibrado</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item done">
+                        <div class="tl-dot done-dot"></div>
+                        <div class="tl-content">
+                            <span class="tl-date gold-text">Fase II</span>
+                            <span class="tl-event">Prueba del Cruzado — Anub'arak Desterrado</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="tl-dot active-dot pulse"></div>
+                        <div class="tl-content">
+                            <span class="tl-date glacial-text">Fase III — ACTIVA</span>
+                            <span class="tl-event">Ciudadela de la Corona de Hielo — El Rey Exánime</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item pending">
+                        <div class="tl-dot"></div>
+                        <div class="tl-content">
+                            <span class="tl-date">Fase IV — PENDIENTE</span>
+                            <span class="tl-event">Ruby Sanctum — Halion el Destructor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             SEPARADOR RÚNICO
+        ========================= -->
+        <div class="rune-divider">
+            <span>ᚹ</span><div class="rune-line"></div><span>⚔ VENTANALES DEL VACÍO ⚔</span><div class="rune-line"></div><span>ᚹ</span>
+        </div>
+
+        <!-- ========================
+             5. STREAMING (Twitch)
+        ========================= -->
+        <section id="streaming">
+            <div class="section-header">
+                <h2 class="gold-text">Ventanales del Vacío</h2>
+                <p class="section-subtitle">Las Crónicas en Vivo del Panteón — Fase de Frenesí Activa</p>
+            </div>
+            <div class="twitch-embed-container">
+                <div class="twitch-live-badge" id="twitch-live-badge">
+                    <span class="live-dot"></span> EN VIVO
+                </div>
+                <iframe
+                    id="twitch-iframe"
+                    src="https://player.twitch.tv/?channel=tilteadosanonimostv&parent=localhost&muted=true"
+                    height="480"
+                    width="100%"
+                    allowfullscreen
+                    title="Tilteados Anónimos TV — Transmisión en vivo">
+                </iframe>
+                <div class="twitch-info">
+                    <div class="twitch-channel-meta">
+                        <div class="twitch-avatar">🔴</div>
+                        <div>
+                            <h3 class="gold-text">Tilteados Anónimos TV</h3>
+                            <p class="twitch-tagline">tilteadosanonimostv</p>
+                        </div>
+                    </div>
+                    <p>Sintoniza la frecuencia del Panteón. Cuando los Vigilantes transmiten, el Universo Wanos vibra con el caos controlado de la guerra. Estrategia, camaradería y frenesí absoluto.</p>
+                    <div class="twitch-actions">
+                        <a href="https://www.twitch.tv/tilteadosanonimostv" target="_blank" class="cta-button" id="btn-entrar-frenzi">ENTRAR AL FRENESÍ</a>
+                        <a href="https://discord.gg/s5AUDDmbta" target="_blank" class="cta-button secondary" id="btn-discord-streaming">NEXO DE ALMAS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             SEPARADOR RÚNICO
+        ========================= -->
+        <div class="rune-divider">
+            <span>ᚱ</span><div class="rune-line"></div><span>⚔ EL RECLUTAMIENTO ⚔</span><div class="rune-line"></div><span>ᚱ</span>
+        </div>
+
+        <!-- ========================
+             6. RECRUITMENT
+        ========================= -->
+        <section id="recruit">
+            <div class="section-header">
+                <h2 class="glacial-text">Buscamos Virtuosos, no Mercenarios</h2>
+                <p class="section-subtitle">El Panteón convoca almas de valor. ¿Responderás al llamado?</p>
+            </div>
+
+            <div class="recruit-intro card">
+                <div class="recruit-quote">
+                    <span class="quote-mark">"</span>
+                    <p>¿Cansado de la frialdad en UltimoWoW? Únete a nosotros en el <b class="gold-text">Nexo de Almas</b> para forjar tu destino. Bhalanar y Morgoroth valoran la lealtad absoluta sobre el Gear Score.</p>
+                    <span class="quote-mark">"</span>
+                </div>
+                <p class="recruit-attr">— Morgoroth, Gran Ejecutor del Panteón</p>
+            </div>
+
+            <div class="class-grid" id="class-forgep">
+                <div class="class-card priority-high" id="class-shaman">
+                    <div class="class-icon">🌊</div>
+                    <div class="class-name">Chamán</div>
+                    <div class="class-spec">Restauración / Mejora</div>
+                    <div class="class-priority-badge high">ALTA PRIORIDAD</div>
+                </div>
+                <div class="class-card priority-high" id="class-paladin">
+                    <div class="class-icon">⚡</div>
+                    <div class="class-name">Paladín</div>
+                    <div class="class-spec">Protección</div>
+                    <div class="class-priority-badge high">ALTA PRIORIDAD</div>
+                </div>
+                <div class="class-card priority-medium" id="class-dk">
+                    <div class="class-icon">💀</div>
+                    <div class="class-name">Caballero de la Muerte</div>
+                    <div class="class-spec">Profano</div>
+                    <div class="class-priority-badge med">MEDIA PRIORIDAD</div>
+                </div>
+                <div class="class-card priority-medium" id="class-hunter">
+                    <div class="class-icon">🏹</div>
+                    <div class="class-name">Cazador</div>
+                    <div class="class-spec">Puntería</div>
+                    <div class="class-priority-badge med">MEDIA PRIORIDAD</div>
+                </div>
+                <div class="class-card priority-low" id="class-mage">
+                    <div class="class-icon">❄</div>
+                    <div class="class-name">Mago</div>
+                    <div class="class-spec">Escarcha / Fuego</div>
+                    <div class="class-priority-badge low">CONSULTAR</div>
+                </div>
+                <div class="class-card priority-low" id="class-priest">
+                    <div class="class-icon">✨</div>
+                    <div class="class-name">Sacerdote</div>
+                    <div class="class-spec">Disciplina / Sagrado</div>
+                    <div class="class-priority-badge low">CONSULTAR</div>
+                </div>
+            </div>
+
+            <div class="recruit-cta-block">
+                <a href="https://discord.gg/s5AUDDmbta" target="_blank" class="cta-button" id="btn-postular">⚔ POSTULAR AL PANTEÓN ⚔</a>
+                <p class="recruit-note">Dirígete al canal <b>#reclutamiento</b> en el Discord del Panteón</p>
+            </div>
+        </section>
+
+        <!-- ========================
+             SEPARADOR RÚNICO
+        ========================= -->
+        <div class="rune-divider">
+            <span>ᛁ</span><div class="rune-line"></div><span>⚔ PILARES DE LA FE ⚔</span><div class="rune-line"></div><span>ᛁ</span>
+        </div>
+
+        <!-- ========================
+             7. PILLARS & RULES
+        ========================= -->
+        <section id="pillars">
+            <div class="section-header">
+                <h2 class="glacial-text">Los Pilares de la Fe Wana</h2>
+                <p class="section-subtitle">Los principios inquebrantables del Universo Wanos</p>
+            </div>
+            <div class="cards-container pillar-cards">
+                <div class="card pillar-card" id="pillar-estrategia">
+                    <div class="pillar-icon-wrap">📖</div>
+                    <h3>Manual de Estrategia</h3>
+                    <p class="pillar-quote">"En la ignorancia nace el wipe; en la enseñanza, la victoria eterna."</p>
+                    <ul class="pillar-list">
+                        <li>Asistencia a raids obligatoria con aviso previo</li>
+                        <li>Estudiá los encounters antes de la incursión</li>
+                        <li>Discord activo durante raids</li>
+                    </ul>
+                </div>
+                <div class="card pillar-card" id="pillar-acero">
+                    <div class="pillar-icon-wrap">🛡</div>
+                    <h3>Código de Acero</h3>
+                    <p class="pillar-quote">"El veneno de la toxicidad será purgado por el filo de la hermandad."</p>
+                    <ul class="pillar-list">
+                        <li>Cero tolerancia con la toxicidad</li>
+                        <li>Respeto absoluto entre compañeros</li>
+                        <li>Los conflictos se resuelven con Bhalanar</li>
+                    </ul>
+                </div>
+                <div class="card pillar-card" id="pillar-union">
+                    <div class="pillar-icon-wrap">🤝</div>
+                    <h3>Unión de Azeroth</h3>
+                    <p class="pillar-quote">"Un solo guerrero cae, un Universo entero lo levanta."</p>
+                    <ul class="pillar-list">
+                        <li>Ayuda mutua en progeo de personaje</li>
+                        <li>Banco de hermandad abierto a Custodios+</li>
+                        <li>La hermandad por encima del GS</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================
+             SEPARADOR RÚNICO
+        ========================= -->
+        <div class="rune-divider">
+            <span>ᛊ</span><div class="rune-line"></div><span>⚔ RELOJ DE LA ETERNIDAD ⚔</span><div class="rune-line"></div><span>ᛊ</span>
+        </div>
+
+        <!-- ========================
+             8. COUNTDOWN
+        ========================= -->
+        <section id="countdown">
+            <div class="section-header">
+                <h2 class="gold-text">El Reloj de la Eternidad</h2>
+                <p class="section-subtitle" id="countdown-title">Los Vigilantes dictan preparación. Afilen el acero.</p>
+            </div>
+            <div class="countdown-container">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <label>Días</label>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <label>Horas</label>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <label>Minutos</label>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <label>Segundos</label>
+                </div>
+            </div>
+            <p class="countdown-next-raid">
+                <span class="gold-text">⚔ Próximo Raid:</span> Sábados 20:00 hs (Hora Latinoamérica)
+            </p>
+        </section>
+
+        <!-- ========================
+             SEPARADOR RÚNICO
+        ========================= -->
+        <div class="rune-divider">
+            <span>ᚷ</span><div class="rune-line"></div><span>⚔ SABIDURÍA Y FORJA ⚔</span><div class="rune-line"></div><span>ᚷ</span>
+        </div>
+
+        <!-- ========================
+             9. FORGE (Builds)
+        ========================= -->
+        <section id="wisdom">
+            <div class="section-header">
+                <h2 class="gold-text">La Forja de Sabiduría Wana</h2>
+                <p class="section-subtitle">Sentencias del Panteón para cada arquetipo de combate</p>
+            </div>
+            <div id="forge">
+                <div class="forge-grid" id="class-forge">
+                    <button class="forge-btn" id="forge-warrior" onclick="showTip('WARRIOR')">
+                        <span class="forge-class-icon">⚔</span>
+                        <span class="forge-class-name">Guerrero</span>
+                        <span class="forge-class-sub">Protección / Furia</span>
+                    </button>
+                    <button class="forge-btn" id="forge-paladin" onclick="showTip('PALADIN')">
+                        <span class="forge-class-icon">✨</span>
+                        <span class="forge-class-name">Paladín</span>
+                        <span class="forge-class-sub">Sagrado / Protec</span>
+                    </button>
+                    <button class="forge-btn" id="forge-dk" onclick="showTip('DK')">
+                        <span class="forge-class-icon">❄</span>
+                        <span class="forge-class-name">DK</span>
+                        <span class="forge-class-sub">Profano / Escarcha</span>
+                    </button>
+                    <button class="forge-btn" id="forge-warlock" onclick="showTip('WARLOCK')">
+                        <span class="forge-class-icon">🔮</span>
+                        <span class="forge-class-name">Brujo</span>
+                        <span class="forge-class-sub">Destrucción</span>
+                    </button>
+                    <button class="forge-btn" id="forge-mage" onclick="showTip('MAGE')">
+                        <span class="forge-class-icon">🔥</span>
+                        <span class="forge-class-name">Mago</span>
+                        <span class="forge-class-sub">Escarcha / Fuego</span>
+                    </button>
+                    <button class="forge-btn" id="forge-shaman" onclick="showTip('SHAMAN')">
+                        <span class="forge-class-icon">🌊</span>
+                        <span class="forge-class-name">Chamán</span>
+                        <span class="forge-class-sub">Restauración</span>
+                    </button>
+                    <button class="forge-btn" id="forge-druid" onclick="showTip('DRUID')">
+                        <span class="forge-class-icon">🍃</span>
+                        <span class="forge-class-name">Druida</span>
+                        <span class="forge-class-sub">Restauración / Balance</span>
+                    </button>
+                    <button class="forge-btn" id="forge-hunter" onclick="showTip('HUNTER')">
+                        <span class="forge-class-icon">🏹</span>
+                        <span class="forge-class-name">Cazador</span>
+                        <span class="forge-class-sub">Puntería</span>
+                    </button>
+                </div>
+                <div id="forge-tip" class="forge-tip-card" style="display:none;"></div>
+            </div>
+        </section>
+
+        <!-- ========================
+             SEPARADOR RÚNICO
+        ========================= -->
+        <div class="rune-divider">
+            <span>ᚾ</span><div class="rune-line"></div><span>⚔ OFRENDAS AL PANTEÓN ⚔</span><div class="rune-line"></div><span>ᚾ</span>
+        </div>
+
+        <!-- ========================
+             10. BLACK MARKET / OFRENDAS
+        ========================= -->
+        <section id="market">
+            <div class="section-header">
+                <h2 class="glacial-text">Ofrendas para la Hermandad</h2>
+                <p class="section-subtitle">Las expediciones de recolección forjan el poder colectivo del Panteón</p>
+            </div>
+            <div class="market-grid">
+                <div class="market-card" id="market-materiales">
+                    <div class="market-icon">⛏</div>
+                    <h3 class="gold-text">Recolección</h3>
+                    <p>Minería, herbología y desencantamiento para el banco de hermandad.</p>
+                    <span class="market-tag">Custodios+</span>
+                </div>
+                <div class="market-card" id="market-crafteo">
+                    <div class="market-icon">🔨</div>
+                    <h3 class="gold-text">Artesanía</h3>
+                    <p>Herrería épica, confección y orfebrería para equipar al Panteón.</p>
+                    <span class="market-tag">Heraldos+</span>
+                </div>
+                <div class="market-card" id="market-runs">
+                    <div class="market-icon">🏰</div>
+                    <h3 class="gold-text">Carreras Rápidas</h3>
+                    <p>ICC 10/25 heroico. Turnos de geneo para los Iniciados bienvenidos.</p>
+                    <span class="market-tag">Todas las rangos</span>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://discord.gg/s5AUDDmbta" target="_blank" class="cta-button" id="btn-entrar-discord">ENTRAR AL DISCORD</a>
+            </div>
+        </section>
+
+        <!-- ========================
+             RUNAS SECRETAS
+        ========================= -->
+        <div class="secret-rune" id="rune-1" style="top:20%; left:2%; opacity:0.1;">ᛟ</div>
+        <div class="secret-rune" id="rune-2" style="bottom:10%; right:5%; opacity:0.1;">ᚦ</div>
+        <div class="secret-rune frenzy-trigger" id="frenzy-rune" onclick="toggleFrenzy()" title="Activar Fase de Frenesí">ᚠ</div>
+
+    </main>
+
+    <!-- ========================
+         MODAL LORE CHARACTERS
+    ========================= -->
+    <div id="lore-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="lore-title">
+        <div class="modal-content card">
+            <button class="close-modal" aria-label="Cerrar modal">✕</button>
+            <div class="modal-header">
+                <div id="modal-avatar-wrap">
+                    <img id="modal-avatar" src="" alt="">
+                </div>
+                <div class="modal-header-text">
+                    <h2 id="lore-title" class="gold-text"></h2>
+                    <p id="lore-subtitle" class="glacial-text"></p>
+                </div>
+            </div>
+            <div id="lore-body"></div>
+            <div id="lore-tags"></div>
+        </div>
+    </div>
+
+    <!-- ========================
+         MODAL BOSS
+    ========================= -->
+    <div id="boss-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="boss-modal-title">
+        <div class="modal-content card boss-modal-content">
+            <button class="close-modal" id="close-boss-modal" aria-label="Cerrar boss modal">✕</button>
+            <h2 id="boss-modal-title" class="gold-text"></h2>
+            <p id="boss-modal-body"></p>
+        </div>
+    </div>
+
+    <!-- ========================
+         WEATHER WIDGET
+    ========================= -->
+    <div id="weather-widget">
+        <span class="weather-icon">🌨</span>
+        <div class="weather-text">
+            <span class="weather-location">📍 Rasganorte</span>
+            <span id="weather-status">Tormenta de Sombras</span>
+        </div>
+    </div>
+
+    <!-- ========================
+         FOOTER
+    ========================= -->
+    <footer id="site-footer">
+        <div class="footer-rune-row">ᛟ ᚠ ᚦ ᛁ ᚾ ᛊ ᚷ ᚱ ᚹ ᛏ</div>
+        <div class="footer-logo">WORLD OF WANOS</div>
+        <div class="footer-links">
+            <a href="https://discord.gg/s5AUDDmbta" target="_blank" class="footer-link">Discord</a>
+            <span class="footer-sep">·</span>
+            <a href="https://www.twitch.tv/tilteadosanonimostv" target="_blank" class="footer-link">Twitch</a>
+            <span class="footer-sep">·</span>
+            <a href="https://github.com/DarckRovert" target="_blank" class="footer-link">GitHub</a>
+            <span class="footer-sep">·</span>
+            <a href="https://twitch.tv/darckrovert" target="_blank" class="footer-link">DarckRovert</a>
+        </div>
+        <p class="gold-text footer-copy">© 2026 World OF Wanos — Comunidad UltimoWoW</p>
+        <p class="footer-sub">Protocolo DarckRovert Institutional | MIT License | WotLK 3.3.5a</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

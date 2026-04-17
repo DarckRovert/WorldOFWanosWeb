@@ -1,0 +1,9 @@
+# Git Ignore
+node_modules/
+.DS_Store
+*.log
+temp/
+assets/images/*.psd
+assets/images/*.xcf
+.gemini/
+.env
