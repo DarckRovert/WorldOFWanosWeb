@@ -283,14 +283,10 @@ function initParticles() {
 function initCountdown() {
     function getNextRaidDate() {
         const now = new Date();
-        const next = new Date(now);
-        const dayOfWeek = now.getDay(); // 0=domingo, 6=sábado
-        const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
-        next.setDate(now.getDate() + (daysUntilSaturday === 0 ? 7 : daysUntilSaturday));
-        next.setHours(20, 0, 0, 0);
-        // Si ya pasó el sábado de esta semana a las 20hs, ir al próximo
-        if (next <= now) {
-            next.setDate(next.getDate() + 7);
+        let next = new Date(now.getFullYear(), now.getMonth(), 28, 20, 0, 0, 0);
+        // Si ya pasó el 28 de este mes a las 20hs, ir al 28 del próximo mes
+        if (now > next) {
+            next = new Date(now.getFullYear(), now.getMonth() + 1, 28, 20, 0, 0, 0);
         }
         return next;
     }
