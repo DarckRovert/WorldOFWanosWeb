@@ -719,6 +719,26 @@ const forgeTips = {
             { boss: 'Profesor Putricidio', strat: 'Fingir Muerte para resetear aggro o desviar habilidades selectas. Deterrence para charcos.' },
             { boss: 'Rey Exánime', strat: 'Trampa de hielo lista para la primera Val\'kyr. Disparo supresor y desvío para espíritus viles en Fase 3.' }
         ]
+    },
+    ROGUE: {
+        speaker: 'Morgoroth',
+        tip: 'El Pícaro es el asesino invisible del Panteón. Tu daño sostenido y utilidad con Secretos del Oficio son vitales.',
+        stat: 'ArP: 100% para Combate | Hit: 8% (magias 17%) | Expertise: 26',
+        guides: [
+            { boss: 'Libramorte Colmillosauro', strat: 'Evasión al llamar bestias. Mantén tu ciclo de daño sin interrupciones.' },
+            { boss: 'Profesor Putricidio', strat: 'Capa de las Sombras para limpiar plagas o evitar daño masivo.' },
+            { boss: 'Rey Exánime', strat: 'Secretos del Oficio al tanque al inicio y siempre a cooldown para maximizar amenaza. Desactivar trampas donde sea necesario.' }
+        ]
+    },
+    PRIEST: {
+        speaker: 'Bhalanar',
+        tip: 'El Sacerdote Disciplina previene la tragedia antes de que ocurra. El Sombras funde la mente de sus enemigos.',
+        stat: 'Disc: SP + Crit | Sombras: Hit 17% > Haste > SP',
+        guides: [
+            { boss: 'Reina de Sangre', strat: 'HEAL: Escudo de Palabra de Poder en todo el raid antes del pacto y volar.' },
+            { boss: 'Príncipes de Sangre', strat: 'DPS/HEAL: Disipar Magia rápido. Sombras: Dispersión para absorber daño letal o recuperar maná.' },
+            { boss: 'Rey Exánime', strat: 'HEAL: Mantener Palabra de Poder: Escudo en todos los objetivos posibles para mitigar Infestar (vital).' }
+        ]
     }
 };
 
@@ -741,6 +761,20 @@ window.showTip = function(className) {
             <span style="font-size:0.82rem; color:#bbb; line-height:1.4; display:block;">${g.strat}</span>
         </div>
     `).join('');
+
+    const forumLinks = {
+        WARLOCK: 'https://foro.ultimowow.com/forum/173-brujo/',
+        DK: 'https://foro.ultimowow.com/forum/174-caballero-de-la-muerte/',
+        HUNTER: 'https://foro.ultimowow.com/forum/175-cazador/',
+        SHAMAN: 'https://foro.ultimowow.com/forum/176-cham%C3%A1n/',
+        DRUID: 'https://foro.ultimowow.com/forum/177-druida/',
+        WARRIOR: 'https://foro.ultimowow.com/forum/178-guerrero/',
+        MAGE: 'https://foro.ultimowow.com/forum/179-mago/',
+        PALADIN: 'https://foro.ultimowow.com/forum/180-palad%C3%ADn/',
+        ROGUE: 'https://foro.ultimowow.com/forum/181-p%C3%ADcaro/',
+        PRIEST: 'https://foro.ultimowow.com/forum/182-sacerdote/'
+    };
+    const forumLink = forumLinks[className] || 'https://foro.ultimowow.com/forum/115-gu%C3%ADas/';
 
     tipElement.style.display = 'block';
     tipElement.innerHTML = `
@@ -766,14 +800,14 @@ window.showTip = function(className) {
         <a href="https://discord.com/channels/1461511689206890539/1480973134772572210" target="_blank" class="cta-button secondary" style="width:100%; text-align:center; padding:12px; font-size:0.85rem; margin-bottom: 10px;">
             🔍 VER GUÍAS COMPLETAS EN DISCORD
         </a>
-        <a href="https://foro.ultimowow.com/forum/gu%C3%ADas/clases/${className.toLowerCase()}" target="_blank" class="cta-button secondary" style="width:100%; text-align:center; padding:12px; font-size:0.85rem; border-color: var(--secondary-gold); color: var(--secondary-gold);">
+        <a href="${forumLink}" target="_blank" class="cta-button secondary" style="width:100%; text-align:center; padding:12px; font-size:0.85rem; border-color: var(--secondary-gold); color: var(--secondary-gold);">
             📖 GUÍA ESPECÍFICA DE CLASE
         </a>
     `;
 };
 
 function getClassIcon(className) {
-    const icons = { WARRIOR:'⚔', PALADIN:'✨', DK:'❄', WARLOCK:'🔮', MAGE:'🔥', SHAMAN:'🌊', DRUID:'🍃', HUNTER:'🏹' };
+    const icons = { WARRIOR:'⚔', PALADIN:'✨', DK:'❄', WARLOCK:'🔮', MAGE:'🔥', SHAMAN:'🌊', DRUID:'🍃', HUNTER:'🏹', ROGUE:'🗡', PRIEST:'⚕' };
     return icons[className] || '⚔';
 }
 
