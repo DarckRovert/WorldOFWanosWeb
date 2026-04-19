@@ -432,14 +432,14 @@ function initSecretLore() {
         },
         'card-franfranco': {
             title: 'Financista Eterno',
-            subtitle: 'FranFranco (Cazador)',
+            subtitle: 'FranFranco (Cazador Elfo Oscuro)',
             avatar: 'assets/images/franfranco.png',
             text: `
                 <p style="line-height:2; font-style:italic; font-size:1.05rem; color:#ddd; margin-bottom:20px;">
                     "El dueño de la mitad de Dalaran."
                 </p>
                 <p style="color:var(--text-muted); margin-bottom:15px;">
-                    FranFranco no solo dispara las fechas directas al pecho del Rey Exánime, también asegura la prosperidad y el banco de la hermandad. Las leyendas dicen que los subastadores de Rasganorte rinden pleitesía antes de hablarle.
+                    FranFranco no solo dispara las fechas directas al pecho del Rey Exánime, también asegura la prosperidad y el banco de la hermandad. Las leyendas dicen que los subastadores de Rasganorte rinden pleitesía antes de hablarle. Un Elfo Oscuro cuyas flechas y oro dictan el equilibrio.
                 </p>
             `,
             tags: ['Mecenas', 'Cazador', 'As de la Subasta']
@@ -763,8 +763,11 @@ window.showTip = function(className) {
             ${guidesHtml}
         </div>
 
-        <a href="https://discord.com/channels/1461511689206890539/1480973134772572210" target="_blank" class="cta-button secondary" style="width:100%; text-align:center; padding:12px; font-size:0.85rem;">
+        <a href="https://discord.com/channels/1461511689206890539/1480973134772572210" target="_blank" class="cta-button secondary" style="width:100%; text-align:center; padding:12px; font-size:0.85rem; margin-bottom: 10px;">
             🔍 VER GUÍAS COMPLETAS EN DISCORD
+        </a>
+        <a href="https://foro.ultimowow.com/forum/gu%C3%ADas/clases/${className.toLowerCase()}" target="_blank" class="cta-button secondary" style="width:100%; text-align:center; padding:12px; font-size:0.85rem; border-color: var(--secondary-gold); color: var(--secondary-gold);">
+            📖 GUÍA ESPECÍFICA DE CLASE
         </a>
     `;
 };
