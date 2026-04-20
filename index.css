@@ -269,6 +269,19 @@ h3 { font-size: 1.4rem; }
     box-shadow: var(--glow-void) !important;
 }
 
+.nav-whatsapp {
+    background: hsla(140, 60%, 45%, 0.15);
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green) !important;
+    margin-left: 8px;
+}
+
+.nav-whatsapp:hover {
+    background: var(--accent-green) !important;
+    color: #fff !important;
+    box-shadow: 0 0 30px hsla(140, 60%, 45%, 0.35) !important;
+}
+
 #nav-mobile-toggle {
     display: none;
     background: none;
