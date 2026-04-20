@@ -179,7 +179,7 @@ function initAchievements() {
         'conquest': { icon: '⚔', title: 'Mapa de Batalla Accedido', sub: 'Las Crónicas de la Conquista están abiertas.' },
         'streaming': { icon: '🔴', title: 'Sintonía Establecida', sub: 'Los Ventanales del Vacío se han abierto.' },
         'recruit': { icon: '📜', title: 'Convocatoria Recibida', sub: 'El Panteón examina tu valía, guerrero.' },
-        'wisdom': { icon: '🔨', title: 'Forja Activada', sub: 'La sabiduría del Panteón está a tu disposición.' },
+        'wisdom': { icon: '📖', title: 'Guías Activadas', sub: 'Las guías del Panteón están a tu disposición.' },
     };
 
     const triggeredSections = new Set();
