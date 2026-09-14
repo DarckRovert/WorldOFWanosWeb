@@ -10,13 +10,22 @@
 let isFrenzy = false;
 let quoteIntervalId = null;
 
+// Persistencia de la Fase de Frenesí
+try {
+    if (localStorage.getItem('wanos_frenzy') === 'true') {
+        isFrenzy = true;
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('frenzy-mode');
+        });
+    }
+} catch (e) {}
+
 document.addEventListener('DOMContentLoaded', () => {
     initParticles();
     initCountdown();
     initScrollAnimations();
     initRandomQuotes();
     initWeather();
-    // initCustomCursor();
     initAchievements();
     initSecretLore();
     initNavigation();
@@ -25,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initForgeButtons();
     initMobileNav();
     updateTwitchParent();
+    initDiscordLive();
+    initRecruitModal();
+    switchCapRole('melee');
 
     // Preseleccionar Guerrero como estado inicial en la forja de guías
     if (typeof window.showTip === 'function') {
@@ -139,6 +151,10 @@ window.toggleFrenzy = function() {
     isFrenzy = !isFrenzy;
     document.body.classList.toggle('frenzy-mode', isFrenzy);
 
+    try {
+        localStorage.setItem('wanos_frenzy', isFrenzy);
+    } catch (e) {}
+
     if (isFrenzy) {
         spawnAchievement('🔥', 'FASE DE FRENESÍ ACTIVADA', 'Sintonía con Tilteados Anónimos. El Universo Wanos vibra bajo el caos.');
     } else {
@@ -207,14 +223,14 @@ function initAchievements() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PARTICLES SYSTEM (Aurora / Mist Effect)
+// PARTICLES SYSTEM (Aurora, Mist & Smooth Mouse Canvas Trail a 60 FPS)
 // ─────────────────────────────────────────────────────────────────────────────
 function initParticles() {
     const canvas = document.getElementById('bg-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let particles = [];
-    let animFrameId;
+    let mouseParticles = [];
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -223,6 +239,24 @@ function initParticles() {
 
     window.addEventListener('resize', resize, { passive: true });
     resize();
+
+    // Estela reactiva del cursor dentro del canvas (Cero sobrecarga de DOM)
+    window.addEventListener('mousemove', (e) => {
+        const count = isFrenzy ? 3 : 2;
+        for (let i = 0; i < count; i++) {
+            mouseParticles.push({
+                x: e.clientX + (Math.random() - 0.5) * 6,
+                y: e.clientY + (Math.random() - 0.5) * 6,
+                vx: (Math.random() - 0.5) * (isFrenzy ? 2.4 : 1.2),
+                vy: (Math.random() - (isFrenzy ? 1.4 : 0.6)) * 1.5,
+                size: Math.random() * (isFrenzy ? 3.5 : 2.5) + 1,
+                life: 1,
+                decay: Math.random() * 0.035 + 0.02,
+                hue: isFrenzy ? (Math.random() > 0.4 ? 5 : 42) : (Math.random() > 0.5 ? 198 : 185)
+            });
+        }
+        if (mouseParticles.length > 90) mouseParticles.splice(0, 20);
+    }, { passive: true });
 
     class Particle {
         constructor() { this.reset(true); }
@@ -273,8 +307,31 @@ function initParticles() {
     function animate() {
         ctx.fillStyle = isFrenzy ? 'rgba(18, 2, 2, 0.12)' : 'rgba(8, 8, 14, 0.06)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Dibujar partículas de fondo
         particles.forEach(p => { p.update(); p.draw(); });
-        animFrameId = requestAnimationFrame(animate);
+
+        // Dibujar partículas del cursor en el canvas
+        for (let i = mouseParticles.length - 1; i >= 0; i--) {
+            const mp = mouseParticles[i];
+            mp.x += mp.vx;
+            mp.y += mp.vy;
+            mp.life -= mp.decay;
+            if (mp.life <= 0) {
+                mouseParticles.splice(i, 1);
+                continue;
+            }
+            ctx.save();
+            ctx.fillStyle = `hsla(${mp.hue}, 95%, ${isFrenzy ? '65%' : '75%'}, ${mp.life * 0.85})`;
+            ctx.shadowBlur = isFrenzy ? 14 : 8;
+            ctx.shadowColor = `hsla(${mp.hue}, 100%, 65%, 0.5)`;
+            ctx.beginPath();
+            ctx.arc(mp.x, mp.y, mp.size * mp.life, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        requestAnimationFrame(animate);
     }
 
     animate();
@@ -551,9 +608,13 @@ function initBossCards() {
     const closeBtn = document.getElementById('close-boss-modal');
 
     const bossLore = {
+        'boss-icc25h': {
+            title: 'Rey Exánime (25 Heroico) — La Cima de Rasganorte',
+            body: 'El desafío definitivo del parche 3.3.5a en UltimoWoW. Tras purificar el encuentro en 25 Normal, el Panteón de Wanos concentra todo su poder bélico para conquistar la versión Heroica. Sin margen de fallo en Profanar, infestares mitigados al milisegundo y foco absoluto en las Val\'kyrs. Aquí se forja la inmortalidad.'
+        },
         'boss-arthas': {
-            title: 'El Rey Exánime — Arthas Menethil',
-            body: 'El príncipe caído que traicionó a su pueblo. Sentado en el Trono Helado de la Ciudadela de la Corona de Hielo, comanda a los muertos que alguna vez fueron sus aliados. El Universo Wanos marcha hacia su caída. Bhalanar ya prepara la estrategia final.'
+            title: 'El Rey Exánime (25 Normal) — Conquistado por World OF Wanos',
+            body: '¡Victoria épica del Panteón! El tirano de la Plaga dobló la rodilla en el Trono Helado en raid de 25 jugadores bajo la coordinación estratégica de Bhalanar y la fuerza oscura de Morgoroth. Un hito que consolidó a la hermandad como una fuerza dominante en Rasganorte.'
         },
         'boss-anubarak': {
             title: "Anub'arak — El Rey Araña",
@@ -621,12 +682,14 @@ function initRandomQuotes() {
     ];
 
     const quotesNormal = [
+        '¡EL REY EXÁNIME HA CAÍDO EN 25 NORMAL! El Trono Helado conoció el acero de Wanos.',
+        'Próximo objetivo inmutable: ICC 25 HEROICO. La gloria definitiva nos aguarda.',
         'Bhalanar observa la urdimbre... su mirada purifica el espíritu del recluta.',
         'Morgoroth dicta: La toxicidad es la plaga que consumiremos con fuego glacial.',
         'En el Universo Wanos, el honor se forja en el servicio mutuo, no en el GS.',
         '¿Has sintonizado tu alma con el Discord del Panteón hoy?',
-        'Morgoroth dice: El GS es vanidad; la ejecución impecable es la verdadera gloria.',
-        'Namor busca el amor en el vacío del olvido. El Panteón busca la victoria.',
+        'Morgoroth dice: El GS es vanidad; la ejecución impecable en 25H es la verdadera gloria.',
+        'Namor busca el amor en el vacío del olvido. El Panteón busca la victoria en Heroico.',
         'Cada wipe es una lección. Cada victoria, una crónica eterna del Universo Wanos.',
         'Los Custodios no duermen; vigilan los portales de Rasganorte por el Panteón.',
     ];
@@ -858,74 +921,167 @@ function initWeather() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CUSTOM CURSOR con trail de partículas
+// DISCORD LIVE COUNTER WIDGET
 // ─────────────────────────────────────────────────────────────────────────────
-function initCustomCursor() {
-    const cursor = document.getElementById('custom-cursor');
-    if (!cursor) return;
+function initDiscordLive() {
+    const countEl = document.getElementById('nav-discord-count');
+    if (!countEl) return;
 
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let raf;
+    fetch('https://discord.com/api/guilds/1461511689206890539/widget.json')
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.presence_count) {
+                countEl.textContent = `(${data.presence_count} ONLINE)`;
+            }
+        })
+        .catch(() => {
+            // Widget no habilitado o CORS; fallback silencioso elegante
+            countEl.textContent = '(ACTIVO)';
+        });
+}
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        spawnCursorParticle(e.clientX, e.clientY);
-    }, { passive: true });
-
-    // Smooth cursor follow
-    function animateCursor() {
-        cursorX += (mouseX - cursorX) * 0.15;
-        cursorY += (mouseY - cursorY) * 0.15;
-        cursor.style.left = cursorX - 6 + 'px';
-        cursor.style.top = cursorY - 6 + 'px';
-        raf = requestAnimationFrame(animateCursor);
+// ─────────────────────────────────────────────────────────────────────────────
+// RECRUITMENT MODAL & DISCORD WEBHOOK / DISPATCH
+// ─────────────────────────────────────────────────────────────────────────────
+window.openRecruitModal = function() {
+    const modal = document.getElementById('recruit-modal');
+    if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
     }
-    animateCursor();
+};
 
-    // Cursor hover effect en elementos interactivos
-    const interactables = 'a, button, .cta-button, .lore-card, .boss-card, .forge-btn, .secret-rune, .nav-link, .close-modal';
-    document.addEventListener('mouseover', (e) => {
-        if (e.target.closest(interactables)) {
-            cursor.classList.add('cursor-hover');
-        }
-    });
-    document.addEventListener('mouseout', (e) => {
-        if (e.target.closest(interactables)) {
-            cursor.classList.remove('cursor-hover');
-        }
-    });
+window.closeRecruitModal = function() {
+    const modal = document.getElementById('recruit-modal');
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+};
 
-    // Ocultar cursor nativo solo si el dispositivo tiene mouse
-    const mq = window.matchMedia('(pointer: fine)');
-    if (!mq.matches) {
-        cursor.style.display = 'none';
-        document.documentElement.style.cursor = 'auto';
+function initRecruitModal() {
+    const modal = document.getElementById('recruit-modal');
+    const selector = document.getElementById('rec-class-selector');
+    const classInput = document.getElementById('rec-class');
+
+    if (selector && classInput) {
+        selector.querySelectorAll('.class-select-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                selector.querySelectorAll('.class-select-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                classInput.value = btn.getAttribute('data-class');
+            });
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeRecruitModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) closeRecruitModal();
+        });
     }
 }
 
-function spawnCursorParticle(x, y) {
-    if (Math.random() > 0.35) return; // Limitar cantidad
-    const particle = document.createElement('div');
-    particle.className = 'cursor-particle';
-    const size = Math.random() * 4 + 1;
-    particle.style.cssText = `
-        width:${size}px;
-        height:${size}px;
-        left:${x - size/2}px;
-        top:${y - size/2}px;
-        opacity:${Math.random() * 0.5 + 0.2};
-    `;
-    document.body.appendChild(particle);
+window.submitRecruitment = function(e) {
+    e.preventDefault();
+    const nick = document.getElementById('rec-nick').value.trim();
+    const gs = document.getElementById('rec-gs').value.trim();
+    const cls = document.getElementById('rec-class').value;
+    const spec = document.getElementById('rec-spec').value.trim();
+    const disc = document.getElementById('rec-discord').value.trim();
+    const exp = document.getElementById('rec-exp').value.trim();
 
-    let opacity = parseFloat(particle.style.opacity);
-    const fade = setInterval(() => {
-        opacity -= 0.04;
-        particle.style.opacity = opacity;
-        if (opacity <= 0) {
-            clearInterval(fade);
-            if (particle.parentNode) particle.remove();
+    const textToCopy = `**⚔️ NUEVA POSTULACIÓN AL PANTEÓN — WORLD OF WANOS (ICC 25H) ⚔️**
+• **Nick:** ${nick}
+• **Clase:** ${cls}
+• **Especialización:** ${spec}
+• **GearScore:** ${gs}
+• **Discord:** ${disc}
+• **Experiencia / Notas:** ${exp}`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy).catch(() => {});
+    }
+
+    const dispatchBox = document.getElementById('recruit-dispatch-box');
+    if (dispatchBox) {
+        dispatchBox.classList.add('visible');
+    }
+
+    spawnAchievement('📜', 'Postulación Generada', 'Pega tu ficha en el canal #reclutamiento de Discord.');
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// WOTLK RAID CAPS CALCULATOR (ICC 10/25)
+// ─────────────────────────────────────────────────────────────────────────────
+const capsData = {
+    melee: [
+        { title: 'Índice de Golpe (Hit Rating)', val: '8% (263 rating)', desc: 'Garantiza que ningún golpe especial o habilidad física falle contra jefes de raid (Nivel 83 / Calavera).', crit: true },
+        { title: 'Pericia (Expertise)', val: '26 / 26 (214 rating)', desc: 'Soft cap obligatorio para golpear por la espalda sin que el jefe esquive tus ataques.', crit: true },
+        { title: 'Penetración de Armadura (ArP)', val: '1400 (100% Hard Cap)', desc: 'Cap supremo para Guerrero Furia, Pícaro Combate, DK Sangre y Cazador Puntería.', crit: false, glacial: true },
+        { title: 'Crítico en Raid (Melee)', val: 'Cap suave ~76%', desc: 'Varía según clase teniendo en cuenta la tabla de golpes (Glancing Blows 24%).', crit: false }
+    ],
+    caster: [
+        { title: 'Índice de Golpe Hechizos', val: '17% (446 rating)', desc: 'Con Spriest (Miseria) o Pollo (Fuego Feérico) en raid, el cap real baja a 14% (368 rating). En Alianza con Draenei baja a 13%.', crit: true },
+        { title: 'Celeridad Hechizos (Haste)', val: '1269 rating (Soft Cap)', desc: 'Reduce el GCD (Global Cooldown) a 1 segundo exacto sin necesidad de Ansia de Sangre.', crit: false, glacial: true },
+        { title: 'Poder con Hechizos (SP)', val: 'Sin límite (Máximo posible)', desc: 'Escalado lineal continuo prioritario tras haber alcanzado el cap de golpe.', crit: false },
+        { title: 'Golpe Crítico Caster', val: 'Cap suave dinámico', desc: 'Prioridad secundaria tras Hit y Haste para Magos Fuego y Brujos.', crit: false }
+    ],
+    tank: [
+        { title: 'Defensa Anti-Crítico', val: '540 Defensa (689 rating)', desc: 'OBLIGATORIO: Otorga inmunidad total a golpes críticos de jefes nivel 83 en ICC 10 y 25.', crit: true },
+        { title: 'Aguante / Vida Efectiva (EHP)', val: 'Prioridad Absoluta', desc: 'Vital para sobrevivir a Segador de Almas del Rey Exánime e impactos masivos.', crit: true },
+        { title: 'Pericia Tanque', val: '26 Soft / 56 Hard', desc: '26 evita esquivas del boss; 56 elimina paradas y previene Parry-Haste letal.', crit: false, glacial: true },
+        { title: 'Índice de Golpe Tanque', val: '8% (263 rating)', desc: 'Previene fallos en Taunts (Provocar) y habilidades generadoras de amenaza masiva.', crit: false }
+    ],
+    healer: [
+        { title: 'Celeridad Sanación', val: 'Soft Cap según Clase', desc: 'Paladín: ~676 haste con Sello de Sabiduría. Chamán: ~1260 haste para Ola de Sanación.', crit: false, glacial: true },
+        { title: 'Regeneración Maná (Mp5 / Spi)', val: 'Sostenibilidad > 300', desc: 'Vital para encuentros de largo desgaste como Sindragosa y Rey Exánime.', crit: true },
+        { title: 'Poder con Hechizos Healer', val: 'Máximo posible', desc: 'Aumenta el rendimiento por sanación directa y mitigación de escudos (Disci).', crit: false },
+        { title: 'Crítico Sanación', val: 'Prioritario en Paladín/Chamán', desc: 'Activa Iluminación (reembolso de maná) y Sanación Ancestral.', crit: false }
+    ]
+};
+
+window.switchCapRole = function(role) {
+    const container = document.getElementById('caps-content-box');
+    if (!container) return;
+
+    // Actualizar botones de tabs
+    document.querySelectorAll('.caps-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('onclick').includes(role)) {
+            btn.classList.add('active');
         }
-    }, 30);
-}
+    });
+
+    const metrics = capsData[role] || capsData.melee;
+    container.innerHTML = metrics.map(m => `
+        <div class="cap-metric-card ${m.crit ? 'critical' : (m.glacial ? 'glacial' : '')}">
+            <div class="cap-metric-title">${m.title}</div>
+            <div class="cap-metric-value">${m.val}</div>
+            <p class="cap-metric-desc">${m.desc}</p>
+        </div>
+    `).join('');
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// REAL-TIME ADDONS SEARCH FILTER
+// ─────────────────────────────────────────────────────────────────────────────
+window.filterAddons = function() {
+    const input = document.getElementById('addon-filter');
+    const grid = document.getElementById('addons-grid');
+    if (!input || !grid) return;
+
+    const query = input.value.toLowerCase().trim();
+    const cards = grid.querySelectorAll('.market-card');
+
+    cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (!query || text.includes(query)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+};

@@ -107,7 +107,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+    background: url('assets/textures/dark-matter.png');
     opacity: 0.12;
     z-index: -1;
     pointer-events: none;
@@ -121,7 +121,7 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    background: url('assets/textures/stardust.png');
     opacity: 0.04;
     pointer-events: none;
     z-index: 9997;
@@ -2001,4 +2001,257 @@ body.frenzy-mode #scroll-progress {
 
     .twitch-actions { flex-direction: column; }
     .twitch-channel-meta { flex-direction: column; text-align: center; }
+}
+
+/* --- 23. DIAMOND-TIER COMPONENT STYLES --- */
+
+/* Discord Live Pill */
+.discord-live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: hsla(235, 86%, 65%, 0.15);
+    border: 1px solid hsla(235, 86%, 65%, 0.4);
+    border-radius: 20px;
+    font-size: 0.78rem;
+    color: hsl(235, 100%, 85%);
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: var(--transition-fast);
+}
+.discord-live-pill:hover {
+    background: hsla(235, 86%, 65%, 0.28);
+    box-shadow: 0 0 15px hsla(235, 86%, 65%, 0.35);
+}
+.discord-live-dot {
+    width: 8px;
+    height: 8px;
+    background: #57f287;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #57f287;
+    animation: pulse 2s infinite;
+}
+
+/* Addon Search Bar */
+.addon-search-container {
+    max-width: 650px;
+    margin: 0 auto 35px auto;
+    position: relative;
+}
+.addon-search-input {
+    width: 100%;
+    padding: 14px 20px 14px 45px;
+    background: hsla(240, 15%, 8%, 0.9);
+    border: 1px solid var(--border-neon);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    outline: none;
+    transition: var(--transition-fast);
+    backdrop-filter: var(--glass-effect);
+}
+.addon-search-input:focus {
+    border-color: var(--secondary-gold);
+    box-shadow: 0 0 20px hsla(45, 100%, 52%, 0.25);
+}
+.addon-search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Caps Calculator */
+.caps-calculator {
+    background: hsla(240, 15%, 7%, 0.92);
+    border: 1px solid var(--border-gold);
+    border-radius: 8px;
+    padding: 28px;
+    margin-top: 45px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: var(--glass-effect);
+}
+.caps-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    justify-content: center;
+}
+.caps-tab-btn {
+    padding: 10px 20px;
+    background: var(--bg-mid);
+    border: 1px solid var(--border-neon);
+    color: var(--text-muted);
+    font-family: var(--font-titles);
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: var(--transition-fast);
+}
+.caps-tab-btn:hover,
+.caps-tab-btn.active {
+    background: var(--primary-glacial);
+    color: #040810;
+    border-color: var(--primary-glacial);
+    font-weight: 700;
+    box-shadow: 0 0 15px hsla(198, 88%, 62%, 0.4);
+}
+.caps-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+}
+.cap-metric-card {
+    background: hsla(240, 12%, 10%, 0.7);
+    border-left: 3px solid var(--secondary-gold);
+    border-radius: 4px;
+    padding: 16px 18px;
+    transition: var(--transition-fast);
+}
+.cap-metric-card:hover {
+    transform: translateY(-2px);
+    background: hsla(240, 12%, 14%, 0.9);
+}
+.cap-metric-card.critical {
+    border-left-color: var(--accent-red);
+}
+.cap-metric-card.glacial {
+    border-left-color: var(--primary-glacial);
+}
+.cap-metric-title {
+    font-family: var(--font-titles);
+    font-size: 0.82rem;
+    color: var(--secondary-gold);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+.cap-metric-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    font-family: var(--font-titles);
+}
+.cap-metric-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Modal Reclutamiento Interactivo */
+.recruit-modal-content {
+    max-width: 680px;
+    width: 92%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.recruit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+@media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+.form-group label {
+    font-size: 0.75rem;
+    font-family: var(--font-titles);
+    letter-spacing: 1px;
+    color: var(--secondary-gold);
+}
+.form-control {
+    padding: 11px 14px;
+    background: hsla(240, 15%, 8%, 0.95);
+    border: 1px solid var(--border-neon);
+    border-radius: 4px;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    outline: none;
+    transition: var(--transition-fast);
+}
+.form-control:focus {
+    border-color: var(--secondary-gold);
+    box-shadow: 0 0 12px hsla(45, 100%, 52%, 0.3);
+}
+select.form-control {
+    cursor: pointer;
+}
+.form-class-selector {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+}
+@media (max-width: 500px) {
+    .form-class-selector { grid-template-columns: repeat(3, 1fr); }
+}
+.class-select-btn {
+    padding: 8px 4px;
+    background: var(--bg-mid);
+    border: 1px solid var(--border-neon);
+    border-radius: 4px;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition-fast);
+}
+.class-select-btn:hover,
+.class-select-btn.selected {
+    border-color: var(--secondary-gold);
+    color: #fff;
+    background: hsla(45, 100%, 52%, 0.15);
+    box-shadow: 0 0 10px hsla(45, 100%, 52%, 0.25);
+}
+.recruit-dispatch-box {
+    margin-top: 15px;
+    padding: 14px;
+    background: hsla(240, 10%, 6%, 0.9);
+    border: 1px dashed var(--border-neon);
+    border-radius: 4px;
+    display: none;
+}
+.recruit-dispatch-box.visible {
+    display: block;
+}
+
+/* Boss Card: ICC 25H Primordial */
+.boss-card.icc25h {
+    border-color: var(--accent-red);
+    box-shadow: 0 0 30px hsla(0, 88%, 55%, 0.28);
+    background: radial-gradient(circle at 50% 20%, hsla(0, 80%, 15%, 0.4), var(--bg-card));
+}
+.boss-card.icc25h:hover {
+    box-shadow: 0 0 45px hsla(0, 88%, 55%, 0.5);
+    transform: translateY(-8px) scale(1.02);
+}
+.status-tag.heroic-tag {
+    background: linear-gradient(90deg, #ff1a1a, #ff6600);
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(255, 26, 26, 0.6);
+}
+.status-tag.defeated-gold {
+    background: hsla(45, 100%, 52%, 0.15);
+    border: 1px solid var(--secondary-gold);
+    color: var(--secondary-gold);
 }

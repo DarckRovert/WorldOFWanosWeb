@@ -56,7 +56,7 @@
             <li><a href="#recruit" class="nav-link" data-section="recruit">RECLUTAR</a></li>
             <li><a href="#wisdom" class="nav-link" data-section="wisdom">GUÍAS</a></li>
             <li><a href="#addons" class="nav-link" data-section="addons">ADDONS</a></li>
-            <li><a href="https://discord.gg/s5AUDDmbta" target="_blank" class="nav-link nav-discord">⚡ DISCORD</a></li>
+            <li><a href="https://discord.gg/s5AUDDmbta" target="_blank" class="nav-link nav-discord"><span class="discord-live-dot"></span> DISCORD <span id="nav-discord-count" style="font-size:0.7rem;opacity:0.85;">(EN VIVO)</span></a></li>
             <li><a href="https://chat.whatsapp.com/By5deesbcs5J211VJGauJJ" target="_blank" class="nav-link nav-whatsapp">📱 WHATSAPP</a></li>
         </ul>
         <button id="nav-mobile-toggle" aria-label="Menú">☰</button>
@@ -88,18 +88,18 @@
             <div class="quote-container" id="random-quote"></div>
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="stat-number gold-text" id="stat-members">47</span>
+                    <span class="stat-number gold-text" id="stat-members">52</span>
                     <span class="stat-label">Almas del Panteón</span>
                 </div>
                 <div class="hero-stat-divider">⚔</div>
                 <div class="hero-stat">
-                    <span class="stat-number gold-text" id="stat-raids">12</span>
+                    <span class="stat-number gold-text" id="stat-raids">18+</span>
                     <span class="stat-label">Raids Completados</span>
                 </div>
                 <div class="hero-stat-divider">⚔</div>
                 <div class="hero-stat">
-                    <span class="stat-number gold-text" id="stat-bosses">38</span>
-                    <span class="stat-label">Jefes Derrotados</span>
+                    <span class="stat-number gold-text" id="stat-bosses">42+</span>
+                    <span class="stat-label">Jefes Derrotados (LK 25N)</span>
                 </div>
             </div>
             <div class="hero-actions">
@@ -345,24 +345,24 @@
             <!-- Progreso general -->
             <div class="conquest-progress-bar-container">
                 <div class="conquest-progress-label">
-                    <span class="gold-text">Progreso de Expansión</span>
-                    <span class="glacial-text" id="conquest-percent">67%</span>
+                    <span class="gold-text">Progreso de Expansión (Arthas 25N Conquistado)</span>
+                    <span class="glacial-text" id="conquest-percent">85%</span>
                 </div>
                 <div class="conquest-progress-bar">
-                    <div class="conquest-progress-fill" style="width: 67%;">
+                    <div class="conquest-progress-fill" style="width: 85%;">
                         <div class="progress-shine"></div>
                     </div>
                 </div>
             </div>
 
             <div class="conquest-grid">
-                <!-- OBJETIVO PRIMORDIAL -->
-                <div class="boss-card current" id="boss-arthas" data-boss="arthas" tabindex="0" role="button">
-                    <div class="boss-raid-label">Ciudadela de la Corona de Hielo</div>
-                    <img src="assets/icons/bosses/arthas.png" alt="El Rey Exánime — Arthas Menethil" loading="lazy">
-                    <h3>Rey Exánime</h3>
-                    <p class="boss-flavor">Arthas Menethil aguarda en el Trono Helado. El destino del Universo Wanos depende de su caída.</p>
-                    <span class="status-tag pulse">⚔ OBJETIVO PRIMORDIAL</span>
+                <!-- NUEVO OBJETIVO PRIMORDIAL: ICC 25 HEROICO -->
+                <div class="boss-card current icc25h" id="boss-icc25h" data-boss="icc25h" tabindex="0" role="button">
+                    <div class="boss-raid-label">Ciudadela de la Corona de Hielo (25H)</div>
+                    <img src="assets/icons/bosses/arthas.png" alt="Rey Exánime 25 Heroico" loading="lazy" style="filter: drop-shadow(0 0 12px #ff2222);">
+                    <h3 style="color:#ff5555;">Rey Exánime (25H)</h3>
+                    <p class="boss-flavor">La cumbre de Rasganorte. Arthas 25N ha sido erradicado por el Panteón; la gloria definitiva exige su caída en modalidad Heroica.</p>
+                    <span class="status-tag heroic-tag pulse">⚔ OBJETIVO PRIMORDIAL: ICC 25H</span>
                     <div class="boss-difficulty">
                         <span class="diff-pip active"></span>
                         <span class="diff-pip active"></span>
@@ -372,7 +372,23 @@
                     </div>
                 </div>
 
-                <!-- DERROTADO -->
+                <!-- DERROTADO: ARTHAS 25 NORMAL -->
+                <div class="boss-card defeated" id="boss-arthas" data-boss="arthas" tabindex="0" role="button">
+                    <div class="boss-raid-label">Ciudadela de la Corona de Hielo (25N)</div>
+                    <img src="assets/icons/bosses/arthas.png" alt="El Rey Exánime — Arthas Menethil" loading="lazy">
+                    <h3>Rey Exánime (25N)</h3>
+                    <p class="boss-flavor">El Trono Helado fue purificado. Arthas Menethil sucumbió ante la disciplina de World OF Wanos en raid de 25 jugadores.</p>
+                    <span class="status-tag defeated-gold">✓ EL REY HA CAÍDO (ERRADICADO)</span>
+                    <div class="boss-difficulty">
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                        <span class="diff-pip active"></span>
+                    </div>
+                </div>
+
+                <!-- DERROTADO: ANUB'ARAK -->
                 <div class="boss-card defeated" id="boss-anubarak" data-boss="anubarak" tabindex="0" role="button">
                     <div class="boss-raid-label">Prueba del Cruzado</div>
                     <img src="assets/icons/bosses/anubarak.png" alt="Anub'arak" loading="lazy">
@@ -388,7 +404,7 @@
                     </div>
                 </div>
 
-                <!-- DERROTADO -->
+                <!-- DERROTADO: ALGALON -->
                 <div class="boss-card defeated" id="boss-algalon" data-boss="algalon" tabindex="0" role="button">
                     <div class="boss-raid-label">Ulduar</div>
                     <img src="assets/icons/bosses/algalon.png" alt="Algalon el Observador" loading="lazy">
@@ -423,17 +439,24 @@
                             <span class="tl-event">Prueba del Cruzado — Anub'arak Desterrado</span>
                         </div>
                     </div>
-                    <div class="timeline-item active">
-                        <div class="tl-dot active-dot pulse"></div>
+                    <div class="timeline-item done">
+                        <div class="tl-dot done-dot"></div>
                         <div class="tl-content">
-                            <span class="tl-date glacial-text">Fase III — ACTIVA</span>
-                            <span class="tl-event">Ciudadela de la Corona de Hielo — El Rey Exánime</span>
+                            <span class="tl-date gold-text">Fase III — CONQUISTADA</span>
+                            <span class="tl-event">Ciudadela de la Corona de Hielo (25N) — El Rey Exánime Erradicado</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="tl-dot active-dot pulse" style="background:#ff3333;box-shadow:0 0 12px #ff3333;"></div>
+                        <div class="tl-content">
+                            <span class="tl-date" style="color:#ff6666;">Fase IV — ACTIVA / PRÓXIMA META</span>
+                            <span class="tl-event">Ciudadela de la Corona de Hielo (25H) — El Trono Helado Heroico</span>
                         </div>
                     </div>
                     <div class="timeline-item pending">
                         <div class="tl-dot"></div>
                         <div class="tl-content">
-                            <span class="tl-date">Fase IV — PENDIENTE</span>
+                            <span class="tl-date">Fase V — PENDIENTE</span>
                             <span class="tl-event">Ruby Sanctum — Halion el Destructor</span>
                         </div>
                     </div>
@@ -550,8 +573,8 @@
             </div>
 
             <div class="recruit-cta-block">
-                <a href="https://discord.gg/s5AUDDmbta" target="_blank" class="cta-button" id="btn-postular">⚔ POSTULAR AL PANTEÓN ⚔</a>
-                <p class="recruit-note">Dirígete al canal <b>#reclutamiento</b> en el Discord del Panteón</p>
+                <button type="button" class="cta-button" id="btn-postular" onclick="openRecruitModal()">⚔ POSTULAR AL PANTEÓN (ICC 25H) ⚔</button>
+                <p class="recruit-note">Abre el formulario místico para enviar tu postulación directa a los oficiales en Discord</p>
             </div>
         </section>
 
@@ -617,7 +640,7 @@
         <section id="countdown">
             <div class="section-header">
                 <h2 class="gold-text">El Reloj de la Eternidad</h2>
-                <p class="section-subtitle" id="countdown-title">Los Vigilantes dictan preparación. Afilen el acero.</p>
+                <p class="section-subtitle" id="countdown-title">Los Vigilantes dictan preparación para la conquista de ICC 25 Heroico.</p>
             </div>
             <div class="countdown-container">
                 <div class="time-box">
@@ -641,7 +664,7 @@
                 </div>
             </div>
             <p class="countdown-next-raid">
-                <span class="gold-text">⚔ Próximo Evento de la Eternidad:</span> Día 28 de cada mes a las 20:00 hs
+                <span class="gold-text">⚔ Próxima Incursión Primordial:</span> ICC 25 Heroico — Día 28 de cada mes a las 20:00 hs
             </p>
         </section>
 
@@ -714,6 +737,24 @@
                     </button>
                 </div>
                 <div id="forge-tip" class="forge-tip-card" style="display:none;"></div>
+                
+                <!-- CALCULADORA DE CAPS WOTLK -->
+                <div class="caps-calculator" id="caps-calc">
+                    <div style="text-align:center;margin-bottom:20px;">
+                        <h3 class="gold-text" style="font-family:var(--font-titles);letter-spacing:2px;font-size:1.15rem;">📊 CALCULADORA DE CAPS OBLIGATORIOS (ICC 10/25)</h3>
+                        <p class="glacial-text" style="font-size:0.85rem;">Estadísticas mínimas requeridas por el Panteón para ingresar a raid</p>
+                    </div>
+                    <div class="caps-tabs">
+                        <button type="button" class="caps-tab-btn active" onclick="switchCapRole('melee')">⚔ MELEE DPS</button>
+                        <button type="button" class="caps-tab-btn" onclick="switchCapRole('caster')">🔮 CASTER DPS</button>
+                        <button type="button" class="caps-tab-btn" onclick="switchCapRole('tank')">🛡 TANQUES</button>
+                        <button type="button" class="caps-tab-btn" onclick="switchCapRole('healer')">⚕ SANADORES</button>
+                    </div>
+                    <div class="caps-content" id="caps-content-box">
+                        <!-- Inyectado dinámicamente por JS -->
+                    </div>
+                </div>
+
                 <div style="text-align: center; margin-top: 30px;">
                     <a href="https://foro.ultimowow.com/forum/115-gu%C3%ADas/" target="_blank" class="cta-button secondary" style="border-color: var(--secondary-gold); color: var(--secondary-gold);">📖 ÍNDICE GENERAL DE GUÍAS</a>
                 </div>
@@ -735,7 +776,14 @@
                     <h2 class="glacial-text">🛠️ Addons Recomendados por Katsurosekai</h2>
                     <p class="section-subtitle">Aportes técnicos gracias a la sabiduría de Katsurosekai. El Kit de Supervivencia definitivo.</p>
                 </div>
-                <div class="market-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 40px; gap: 20px;">
+
+                <!-- BUSCADOR EN TIEMPO REAL DE ADDONS -->
+                <div class="addon-search-container">
+                    <span class="addon-search-icon">🔍</span>
+                    <input type="text" id="addon-filter" class="addon-search-input" placeholder="Buscar addon por nombre o función (ej: DBM, agro, daño, sanación)..." oninput="filterAddons()">
+                </div>
+
+                <div class="market-grid" id="addons-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 40px; gap: 20px;">
                     <div class="market-card">
                         <h3 class="gold-text">DBM</h3>
                         <p>Deadly Boss Mods. (Obligatorio)</p>
@@ -847,13 +895,71 @@
     </div>
 
     <!-- ========================
-         MODAL BOSS
+         MODAL RECLUTAMIENTO INTERACTIVO
     ========================= -->
-    <div id="boss-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="boss-modal-title">
-        <div class="modal-content card boss-modal-content">
-            <button class="close-modal" id="close-boss-modal" aria-label="Cerrar boss modal">✕</button>
-            <h2 id="boss-modal-title" class="gold-text"></h2>
-            <p id="boss-modal-body"></p>
+    <div id="recruit-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="recruit-modal-title">
+        <div class="modal-content card recruit-modal-content">
+            <button class="close-modal" id="close-recruit-modal" onclick="closeRecruitModal()" aria-label="Cerrar postulación">✕</button>
+            <div class="modal-header">
+                <div class="modal-header-text">
+                    <h2 id="recruit-modal-title" class="gold-text">⚔ Postulación al Panteón — ICC 25H</h2>
+                    <p class="glacial-text">Ingresa tus datos para ser evaluado por Bhalanar y Morgoroth</p>
+                </div>
+            </div>
+            
+            <form id="recruit-form" class="recruit-form" onsubmit="submitRecruitment(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="rec-nick">Nombre del Personaje (Nick)</label>
+                        <input type="text" id="rec-nick" class="form-control" placeholder="Ej: Arthasbane" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rec-gs">GearScore Actual (Ej: 5800)</label>
+                        <input type="number" id="rec-gs" class="form-control" placeholder="Ej: 5850" min="4000" max="6900" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Clase del Personaje</label>
+                    <div class="form-class-selector" id="rec-class-selector">
+                        <button type="button" class="class-select-btn selected" data-class="WARRIOR">⚔ Guerrero</button>
+                        <button type="button" class="class-select-btn" data-class="PALADIN">✨ Paladín</button>
+                        <button type="button" class="class-select-btn" data-class="DK">❄ DK</button>
+                        <button type="button" class="class-select-btn" data-class="WARLOCK">🔮 Brujo</button>
+                        <button type="button" class="class-select-btn" data-class="MAGE">🔥 Mago</button>
+                        <button type="button" class="class-select-btn" data-class="SHAMAN">🌊 Chamán</button>
+                        <button type="button" class="class-select-btn" data-class="DRUID">🍃 Druida</button>
+                        <button type="button" class="class-select-btn" data-class="HUNTER">🏹 Cazador</button>
+                        <button type="button" class="class-select-btn" data-class="ROGUE">🗡 Pícaro</button>
+                        <button type="button" class="class-select-btn" data-class="PRIEST">⚕ Sacerdote</button>
+                    </div>
+                    <input type="hidden" id="rec-class" value="WARRIOR">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="rec-spec">Especialización / Rama Principal</label>
+                        <input type="text" id="rec-spec" class="form-control" placeholder="Ej: Furia / Protección / Sagrado" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rec-discord">Usuario o Tag de Discord</label>
+                        <input type="text" id="rec-discord" class="form-control" placeholder="Ej: darckrovert#0001" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rec-exp">Experiencia en ICC / Disponibilidad</label>
+                    <textarea id="rec-exp" class="form-control" rows="3" placeholder="Ej: Conozco las mecánicas de ICC 10/25N, asisto puntual a las 20:00 hs los días de raid." required></textarea>
+                </div>
+
+                <button type="submit" class="cta-button" style="width:100%;margin-top:10px;">📜 ENVIAR POSTULACIÓN AL DISCORD</button>
+            </form>
+
+            <div id="recruit-dispatch-box" class="recruit-dispatch-box">
+                <p class="gold-text" style="font-family:var(--font-titles);font-size:0.85rem;margin-bottom:8px;">✔ ¡Ficha generada exitosamente!</p>
+                <p style="font-size:0.8rem;color:#bbb;margin-bottom:12px;">Se ha copiado tu ficha al portapapeles. Pégala directamente en el canal <b style="color:var(--secondary-gold)">#reclutamiento</b> de Discord.</p>
+                <a href="https://discord.gg/s5AUDDmbta" target="_blank" class="cta-button secondary" style="width:100%;text-align:center;">⚡ ABRIR CANAL DE RECLUTAMIENTO EN DISCORD</a>
+            </div>
         </div>
     </div>
 
