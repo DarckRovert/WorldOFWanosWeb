@@ -22,6 +22,7 @@ try {
 
 document.addEventListener('DOMContentLoaded', () => {
     initParticles();
+    initCustomCursor();
     initCountdown();
     initScrollAnimations();
     initRandomQuotes();
@@ -117,7 +118,8 @@ function initNavigation() {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 // Cerrar mobile nav si está abierto
-                document.getElementById('mobile-nav-overlay').classList.remove('open');
+                const overlay = document.getElementById('mobile-nav-overlay');
+                if (overlay) overlay.classList.remove('open');
             }
         });
     });
@@ -678,6 +680,9 @@ function initBossCards() {
     if (modal) {
         modal.addEventListener('click', (e) => { if (e.target === modal) closeBossModal(); });
     }
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeBossModal();
+    });
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1079,7 +1084,8 @@ window.switchCapRole = function(role) {
     // Actualizar botones de tabs
     document.querySelectorAll('.caps-tab-btn').forEach(btn => {
         btn.classList.remove('active');
-        if (btn.getAttribute('onclick').includes(role)) {
+        const oc = btn.getAttribute('onclick') || '';
+        if (oc.includes(role)) {
             btn.classList.add('active');
         }
     });
@@ -1104,13 +1110,50 @@ window.filterAddons = function() {
 
     const query = input.value.toLowerCase().trim();
     const cards = grid.querySelectorAll('.market-card');
+    const noMsg = document.getElementById('no-addons-msg');
+    let matches = 0;
 
     cards.forEach(card => {
         const text = card.textContent.toLowerCase();
         if (!query || text.includes(query)) {
             card.style.display = '';
+            matches++;
         } else {
             card.style.display = 'none';
         }
     });
+
+    if (noMsg) {
+        noMsg.style.display = (matches === 0) ? 'block' : 'none';
+    }
 };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CUSTOM CURSOR & HOVER REACTION
+// ─────────────────────────────────────────────────────────────────────────────
+function initCustomCursor() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    const cursor = document.getElementById('custom-cursor');
+    if (!cursor) return;
+
+    let isVisible = false;
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isVisible) {
+            cursor.classList.add('visible');
+            isVisible = true;
+        }
+        cursor.style.transform = `translate3d(${e.clientX - 6}px, ${e.clientY - 6}px, 0)`;
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+        cursor.classList.remove('visible');
+        isVisible = false;
+    });
+
+    const hoverSelectors = 'a, button, [role="button"], input, textarea, select, .forge-btn, .caps-tab-btn, .market-card, .lore-card, .boss-card';
+    document.querySelectorAll(hoverSelectors).forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+    });
+}

@@ -18,11 +18,11 @@ Para activar el poder oculto del sitio:
 ## 3. Guía de Entrenamiento (Forja de Builds)
 En la sección "Sabiduría y Forja", puedes hacer clic en los íconos de clase para recibir consejos directos de **Bhalanar** y **Morgoroth**. Estos consejos son fundamentales para el éxito en raids de 10 y 25 jugadores.
 
-## 4. Despliegue Técnico (Netlify)
-Al subir el sitio a **Netlify**:
-1. Asegúrate de subir la carpeta `assets` completa.
-2. El sistema detectará automáticamente tu subdominio `.netlify.app` para habilitar el reproductor de Twitch. No necesitas configuración manual.
-3. Si el reproductor no carga, verifica que el streaming en `twitch.tv/tilteadosanonimostv` no esté bajo restricciones regionales.
+## 4. Despliegue Técnico (GitHub Pages)
+El portal está publicado en producción mediante **GitHub Pages** (rama `main`):
+1. **URL Oficial en Vivo:** [https://darckrovert.github.io/WorldOFWanosWeb/](https://darckrovert.github.io/WorldOFWanosWeb/)
+2. El reproductor de Twitch detecta automáticamente el dominio del host (`darckrovert.github.io` o `localhost`) para inyectar dinámicamente el parámetro de seguridad `parent` sin errores de CORS.
+3. El despliegue se realiza de forma nativa e instantánea en cada commit a la rama `main` mediante la API de GitHub Pages (`gh api -X POST /repos/DarckRovert/WorldOFWanosWeb/pages/builds`).
 
 ## 5. Contacto
-Para problemas técnicos, contacta a los **Heraldos** en el servidor de Discord oficial.
+Para problemas técnicos o reclutamiento en ICC 25H, contacta a los **Custodios y Heraldos** en el servidor oficial de Discord.

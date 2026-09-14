@@ -19,6 +19,7 @@
     <meta name="twitter:description" content="La hermandad élite de UltimoWoW. Forjada entre la escarcha y el destino.">
     <meta name="twitter:image" content="https://darckrovert.github.io/WorldOFWanosWeb/assets/images/hero_bg.png">
     <meta name="theme-color" content="#0a0a0f">
+    <link rel="canonical" href="https://darckrovert.github.io/WorldOFWanosWeb/">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="index.css">
     <!-- Wowhead Tooltips -->
@@ -30,7 +31,6 @@
     <canvas id="bg-canvas"></canvas>
     <div class="vignette"></div>
     <div id="custom-cursor"></div>
-    <div id="cursor-trail"></div>
     <div class="fog-texture"></div>
 
     <!-- Scroll progress bar -->
@@ -833,6 +833,9 @@
                         <h3 class="gold-text">HealBot</h3>
                         <p>Interfaz óptima para sanadores.</p>
                     </div>
+                    <div id="no-addons-msg" class="no-results-msg" style="display:none; grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted); font-family:var(--font-titles); letter-spacing:1px;">
+                        <span>❄ No se encontraron addons que coincidan con la búsqueda.</span>
+                    </div>
                 </div>
                 
                 <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 15px;">
@@ -916,6 +919,21 @@
             </div>
             <div id="lore-body"></div>
             <div id="lore-tags"></div>
+        </div>
+    </div>
+
+    <!-- ========================
+         MODAL CRÓNICAS DE JEFES
+    ========================= -->
+    <div id="boss-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="boss-modal-title">
+        <div class="modal-content card boss-modal-content">
+            <button class="close-modal" id="close-boss-modal" aria-label="Cerrar crónica del jefe">✕</button>
+            <div class="modal-header">
+                <div class="modal-header-text">
+                    <h2 id="boss-modal-title" class="gold-text"></h2>
+                </div>
+            </div>
+            <div id="boss-modal-body" style="color:var(--text-muted); line-height:1.8; font-size:0.95rem; margin-top:15px;"></div>
         </div>
     </div>
 
