@@ -26,6 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileNav();
     updateTwitchParent();
 
+    // Preseleccionar Guerrero como estado inicial en la forja de guías
+    if (typeof window.showTip === 'function') {
+        window.showTip('WARRIOR');
+    }
+
     // Disparo achievement de bienvenida
     setTimeout(() => {
         spawnAchievement('👁', 'Alerta del Panteón', 'Los Vigilantes han detectado tu presencia en Rasganorte.');
@@ -40,9 +45,7 @@ function updateTwitchParent() {
     if (!iframe) return;
     try {
         const hostname = window.location.hostname || 'localhost';
-        const url = new URL(iframe.src);
-        url.searchParams.set('parent', hostname);
-        iframe.src = url.toString();
+        iframe.src = `https://player.twitch.tv/?channel=tilteadosanonimostv&parent=${encodeURIComponent(hostname)}&muted=true`;
     } catch (e) {
         console.error('Error actualizando parent de Twitch:', e);
     }
@@ -278,22 +281,25 @@ function initParticles() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// COUNTDOWN - próximo raid sábado 20hs
+// COUNTDOWN - próximo evento día 28 a las 20:00 hs
 // ─────────────────────────────────────────────────────────────────────────────
 function initCountdown() {
-    function getNextRaidDate() {
+    function getRaidTarget() {
         const now = new Date();
-        let next = new Date(now.getFullYear(), now.getMonth(), 28, 20, 0, 0, 0);
-        // Si ya pasó el 28 de este mes a las 20hs, ir al 28 del próximo mes
-        if (now > next) {
-            next = new Date(now.getFullYear(), now.getMonth() + 1, 28, 20, 0, 0, 0);
+        let raidStart = new Date(now.getFullYear(), now.getMonth(), 28, 20, 0, 0, 0);
+        // Ventana de raid en curso: día 28 entre 20:00 y 23:59
+        const raidEnd = new Date(now.getFullYear(), now.getMonth(), 28, 23, 59, 59, 999);
+
+        if (now >= raidStart && now <= raidEnd) {
+            return { status: 'active', target: raidEnd };
         }
-        return next;
+        if (now > raidEnd) {
+            raidStart = new Date(now.getFullYear(), now.getMonth() + 1, 28, 20, 0, 0, 0);
+        }
+        return { status: 'upcoming', target: raidStart };
     }
 
-    const nextRaid = getNextRaidDate();
     const titleEl = document.getElementById('countdown-title');
-
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minsEl = document.getElementById('minutes');
@@ -312,10 +318,17 @@ function initCountdown() {
 
     const updateTimer = () => {
         const now = new Date().getTime();
-        const distance = nextRaid - now;
+        const { status, target } = getRaidTarget();
+        const distance = target.getTime() - now;
+
+        if (status === 'active') {
+            if (titleEl) titleEl.innerText = '🔥 ¡INCURSIÓN EN CURSO! LA PLAGA CAE ANTE EL PODER DE WANOS. 🔥';
+            tick(daysEl, 0); tick(hoursEl, 0); tick(minsEl, 0); tick(secsEl, 0);
+            return;
+        }
 
         if (distance <= 0) {
-            if (titleEl) titleEl.innerText = '🔥 LA CACERÍA HA COMENZADO. POR EL UNIVERSO WANOS. 🔥';
+            if (titleEl) titleEl.innerText = '🔥 LA CACERÍA HA COMENZADO. FORMACIÓN INMEDIATA. 🔥';
             tick(daysEl, 0); tick(hoursEl, 0); tick(minsEl, 0); tick(secsEl, 0);
             return;
         }
