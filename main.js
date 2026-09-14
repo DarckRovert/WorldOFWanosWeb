@@ -547,17 +547,41 @@ function initSecretLore() {
         },
         'card-sunreal': {
             title: 'Namor, El Niño Sin Amor',
-            subtitle: 'Sunreal / Yatala',
+            subtitle: 'Sunreal / Yatala — El Solitario Incomprendido',
             avatar: 'assets/images/sunreal.png',
             text: `
-                <p style="line-height:2; font-style:italic; font-size:1.05rem; color:#ddd; margin-bottom:20px;">
+                <p style="line-height:1.8; font-style:italic; font-size:1.05rem; color:#ddd; margin-bottom:18px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
                     "Encuentro más calor en el aliento de Sindragosa que en el corazón de mi Sanador."
                 </p>
-                <p style="color:var(--text-muted); margin-bottom:15px;">
-                    Sunreal es el poema dramático del Panteón. Camina solo entre los packs de No-Muertos absorbiendo el daño que nadie desea, pidiendo amor y cura en una hermandad donde Morgoroth dicta que la debilidad se castiga. Una leyenda trágica irremplazable.
+                <div style="background:rgba(255,255,255,0.03); border-left:3px solid var(--accent-void); padding:12px 16px; margin-bottom:14px; border-radius:4px;">
+                    <b style="color:var(--secondary-gold); font-size:0.95rem;">📖 Capítulo I: El Origen del Desamor</b>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-top:6px; line-height:1.6;">
+                        Nacido en los rincones más fríos de Dalaran, Namor (Sunreal / Yatala) juró fidelidad a World OF Wanos con la ingenua ilusión de recibir cariño. Pronto descubrió la cruda realidad de Rasganorte: en esta hermandad el amor no existe; solo existen los 540 de defensa de Morgoroth, el filo implacable del DKP y gritos de disciplina a 120 decibelios por Discord.
+                    </p>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); border-left:3px solid var(--accent-glacial); padding:12px 16px; margin-bottom:14px; border-radius:4px;">
+                    <b style="color:var(--secondary-gold); font-size:0.95rem;">💔 Capítulo II: La Conspiración de los Sanadores</b>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-top:6px; line-height:1.6;">
+                        Cuenta la leyenda que Namor se para deliberadamente en las llamas de Tuétano y en los charcos de baba de Panzachancro pensando que son «fuentes termales de afecto». Cuando clama desesperado por Discord: <i>«¡Cúrenme por favor, me desangro!»</i>, los Sacerdotes fingen caída súbita de FPS, los Paladines le tiran Mano de Protección para cancelarle el casteo, y los Druidas le lanzan Rejuvenecimiento cuando su fantasma ya va corriendo desde el cementerio.
+                    </p>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); border-left:3px solid var(--accent-red); padding:12px 16px; margin-bottom:14px; border-radius:4px;">
+                    <b style="color:var(--secondary-gold); font-size:0.95rem;">🎲 Capítulo III: La Maldición del Loot (Récord Mundial de 1 en Dados)</b>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-top:6px; line-height:1.6;">
+                        Posee el récord Guinness de tirar 1 en dados por cualquier pieza BiS. Se rumorea que una vez sacó 99 en un abalorio heroico, pero el servidor de UltimoWoW sufrió un rollback cuántico de 3 minutos solo para anular su felicidad. El oficial de botín sentenció: <i>«El loot es para quienes esquivan el Profanar, Namor, no para quienes se acuestan en él a tomar el sol.»</i>
+                    </p>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); border-left:3px solid var(--secondary-gold); padding:12px 16px; margin-bottom:14px; border-radius:4px;">
+                    <b style="color:var(--secondary-gold); font-size:0.95rem;">⚔ Capítulo IV: El Mártir Involuntario de Arthas 25N</b>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-top:6px; line-height:1.6;">
+                        Durante la histórica caída del Rey Exánime en 25N, Namor fue el primero en caer al vacío en Fase 1 buscando a un compañero que le diera buff de Intelecto. Su caída fue cósmica: Arthas se quedó tan desconcertado mirándolo caer que descuidó su rotación, permitiendo que el Panteón rematara el 10% final. Nadie le dio las gracias, pero le descontaron 50g del festín de pescado.
+                    </p>
+                </div>
+                <p style="color:var(--secondary-gold); font-family:var(--font-titles); letter-spacing:1px; font-size:0.88rem; text-align:center; margin-top:12px;">
+                    ⚡ Veredicto Cósmico: "0% Afecto Recibido, 100% de Daño Evitable Absorbido. Sin Namor para comerse los wipes, la hermandad no existiría."
                 </p>
             `,
-            tags: ['Superviviente', 'Solitario Trágico']
+            tags: ['0% Afecto Recibido', '1 en Dados', 'Absorbedor de Mecánicas', 'Mártir Incomprendido', 'El Niño Sin Amor']
         }
     };
 
@@ -693,6 +717,8 @@ function initRandomQuotes() {
         '¿Has sintonizado tu alma con el Discord del Panteón hoy?',
         'Morgoroth dice: El GS es vanidad; la ejecución impecable en 25H es la verdadera gloria.',
         'Namor busca el amor en el vacío del olvido. El Panteón busca la victoria en Heroico.',
+        'Namor por Discord: "¿Alguien me da buff de reyes o al menos un buenas noches?" — Visto a las 22:00.',
+        'Regla cósmica de Wanos: Si no sabes dónde pararte en el boss, busca a Namor y párate al lado contrario.',
         'Cada wipe es una lección. Cada victoria, una crónica eterna del Universo Wanos.',
         'Los Custodios no duermen; vigilan los portales de Rasganorte por el Panteón.',
     ];
