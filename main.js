@@ -433,12 +433,12 @@ function initSecretLore() {
 
     const loreDatabase = {
         'rune-1': {
-            title: 'Crónicas del Vigilante',
-            subtitle: 'Bhalanar — Vigilante de la Urdimbre',
+            title: 'Crónicas del Dios Antiguo',
+            subtitle: 'Bhalanar — Vigilante Cósmico y Dios Antiguo',
             avatar: 'assets/images/bhalanar.png',
             text: `
                 <p style="line-height:2; font-style:italic; font-size:1.05rem; color:#ddd; margin-bottom:20px;">
-                    "Bhalanar no es un simple líder; es un remanente del Orden. Mientras el mundo se desmorona bajo el peso de la traición en Ulduar, él mantiene el equilibrio en el Universo Wanos."
+                    "Bhalanar no es un simple mortal; es el orden primordial. Habiendo forjado el Universo Wanos, ahora vigila desde el reposo eterno de los Dioses Antiguos."
                 </p>
                 <p style="color:var(--text-muted); margin-bottom:15px;">
                     Antiguo guardián de las Salas de la Creación, Bhalanar presenció la caída de los Titanes y eligió preservar lo que quedaba de la orden cósmica. Su lema es implacable:
@@ -447,7 +447,7 @@ function initSecretLore() {
                     "Aquí, el GS no compra el respeto; el alma lo forja."
                 </p>
             `,
-            tags: ['Vigilante Supremo', 'GM', 'Fundador', 'Ulduar']
+            tags: ['Dios Antiguo', 'Vigilante Supremo', 'Fundador', 'Ulduar']
         },
         'rune-2': {
             title: 'Sentencia del Ejecutor',
@@ -467,21 +467,21 @@ function initSecretLore() {
             tags: ['Gran Ejecutor', 'Co-GM', 'Tilteados Anónimos', 'Espada de Ébano']
         },
         'card-bhalanar': {
-            title: 'El Arquitecto',
-            subtitle: 'Bhalanar / Makumbaman (Paladín / Brujo)',
+            title: 'Dios Antiguo Primordial',
+            subtitle: 'Bhalanar / Makumbaman (En el Sueño Cósmico)',
             avatar: 'assets/images/bhalanar.png',
             text: `
                 <p style="line-height:2; font-style:italic; font-size:1.05rem; color:#ddd; margin-bottom:20px;">
-                    "El líder que hizo posible este proyecto. Aunque parezca que no está, siempre vigila."
+                    "El líder y arquitecto que concibió el Universo Wanos. Aunque ya no empuña el acero en Rasganorte, su voluntad cósmica rige la eternidad del Panteón."
                 </p>
                 <p style="color:var(--text-muted); margin-bottom:15px;">
-                    Controlando las hebras desde la retaguardia, todo se le informa por lo bajo. Es el cimiento sobre el cual se edificaron los salones del Panteón. No hace falta verlo en primera línea para sentir el impacto de sus decisiones forjadas en Luz y Vacío.
+                    Habiendo fundado las leyes del Panteón y establecido el orden en Dalaran, Bhalanar ascendió al reposo de los Dioses Antiguos. Su doctrina inmutable sostiene que el honor, el compromiso y el alma colectiva prevalecen eternamente sobre la vanidad del GearScore.
                 </p>
                 <p style="color:var(--secondary-gold); font-family:var(--font-titles); letter-spacing:2px; font-size:0.9rem;">
-                    "En el tablero del Panteón, yo muevo las sombras que los demás llaman destino."
+                    "En el tablero cósmico del Panteón, mi legado sigue forjando las victorias que ustedes llaman destino."
                 </p>
             `,
-            tags: ['Vigilante Supremo', 'Creador de Wanos', 'Paladín', 'Brujo']
+            tags: ['Dios Antiguo', 'Creador de Wanos', 'Vigilante Eterno', 'Paladín / Brujo']
         },
         'card-morgoroth': {
             title: 'Dios Avalado por los GMs',
@@ -515,18 +515,21 @@ function initSecretLore() {
             tags: ['Mecenas', 'Cazador', 'As de la Subasta']
         },
         'card-kat': {
-            title: 'El Líder Nato Gruñón',
-            subtitle: 'Katsurosekai / Kat',
+            title: 'Dios Antiguo de la Disciplina',
+            subtitle: 'Katsurosekai / Kat (Ascendido a la Leyenda)',
             avatar: 'assets/images/kat.png',
             text: `
                 <p style="line-height:2; font-style:italic; font-size:1.05rem; color:#ddd; margin-bottom:20px;">
-                    "Si no me escuchas quejarme, significa que el raid va peligrosamente perfecto."
+                    "Si no me escuchabas quejarme, significa que el raid iba peligrosamente perfecto. Mis rezongos forjaron la supervivencia de Wanos."
                 </p>
                 <p style="color:var(--text-muted); margin-bottom:15px;">
-                    La disciplina toma forma en su voz cruda y experimentada. Muchos ven en él un gruñón; el Panteón ve en él la barrera que evita que los novatos arruinen el try a Profesor Putricidio HC. Un pilar inamovible de la victoria.
+                    Ahora venerado como Dios Antiguo de la Táctica, Kat ya no está activo en las incursiones cotidianas, pero su disciplina militar, sus addons recomendados y su intolerancia al error siguen evitando que el Panteón cometa fallos en el camino a ICC 25 Heroico.
+                </p>
+                <p style="color:var(--accent-red); font-family:var(--font-titles); letter-spacing:2px; font-size:0.9rem;">
+                    "El filo de la disciplina no muere con el retiro; vigilo cada movimiento del raid desde las sombras."
                 </p>
             `,
-            tags: ['Disciplina', 'Líder Gruñón', 'Táctica Veterana']
+            tags: ['Dios Antiguo', 'Disciplina Ancestral', 'Padre Táctico', 'Leyenda de ICC']
         },
         'card-nunurut': {
             title: 'El Ser de Luz',

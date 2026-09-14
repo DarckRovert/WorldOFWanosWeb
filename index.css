@@ -577,6 +577,31 @@ section.visible {
     color: var(--accent-void);
 }
 
+.old-god-badge {
+    background: linear-gradient(135deg, hsla(270, 72%, 48%, 0.35), hsla(45, 100%, 52%, 0.35));
+    border: 1px solid var(--secondary-gold);
+    color: var(--secondary-gold);
+    box-shadow: 0 0 10px hsla(45, 100%, 52%, 0.3);
+    font-weight: 700;
+}
+
+.old-god-card {
+    border-color: hsla(45, 100%, 52%, 0.35) !important;
+    background: radial-gradient(circle at 50% 0%, hsla(270, 60%, 15%, 0.5), hsla(240, 15%, 8%, 0.95)) !important;
+}
+
+.old-god-card:hover {
+    border-color: var(--secondary-gold) !important;
+    box-shadow: 0 0 35px hsla(270, 72%, 48%, 0.45), 0 0 20px hsla(45, 100%, 52%, 0.35) !important;
+}
+
+.old-gods-wrapper {
+    margin-top: 55px;
+    padding-top: 40px;
+    border-top: 1px dashed hsla(45, 100%, 52%, 0.25);
+    width: 100%;
+}
+
 .card-img-wrapper {
     position: relative;
     margin-bottom: 28px;
